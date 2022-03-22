@@ -6,6 +6,6 @@ create table if not exists `users` (
   PRIMARY KEY (`id`),
   constraint unique (`username`),
   constraint unique (`email`)
-)
+);
 
-insert into `users` (`username`, `email`) values ('JoeSmith', 'joe.smith@example.com');
+insert into users (username, email) values ('JoeSmith', 'joe.smith@example.com')

@@ -9,6 +9,7 @@ import (
 
 	v1 "github.com/devzero-inc/grpc-service/pkg/api/service/v1"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 // RunServer runs gRPC service to publish ToDo service
@@ -20,6 +21,7 @@ func RunServer(ctx context.Context, v1API v1.UserServiceServer, port string) err
 
 	// register service
 	server := grpc.NewServer()
+	reflection.Register(server)
 	v1.RegisterUserServiceServer(server, v1API)
 
 	// graceful shutdown

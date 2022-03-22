@@ -1,3 +1,4 @@
+drop table if exists `users`;
 
 create table if not exists `users` (
   `id` bigint(20) not null auto_increment,
@@ -8,4 +9,5 @@ create table if not exists `users` (
   constraint unique (`email`)
 );
 
-insert into users (username, email) values ('JoeSmith', 'joe.smith@example.com')
+insert into `users` (`username`, `email`) values ('JoeSmith', 'joe.smith@example.com');
+insert into `users` (`username`, `email`) values ('Player1', 'player0ne@example.com');

@@ -4,7 +4,7 @@
 // - protoc             v3.19.3
 // source: service.proto
 
-package pb
+package v1
 
 import (
 	context "context"
@@ -37,7 +37,7 @@ func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
 
 func (c *userServiceClient) Create(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error) {
 	out := new(CreateUserResponse)
-	err := c.cc.Invoke(ctx, "/grpc_service.UserService/Create", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/v1.UserService/Create", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func (c *userServiceClient) Create(ctx context.Context, in *CreateUserRequest, o
 
 func (c *userServiceClient) ReadAll(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ReadAllUserResponse, error) {
 	out := new(ReadAllUserResponse)
-	err := c.cc.Invoke(ctx, "/grpc_service.UserService/ReadAll", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/v1.UserService/ReadAll", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -54,15 +54,14 @@ func (c *userServiceClient) ReadAll(ctx context.Context, in *emptypb.Empty, opts
 }
 
 // UserServiceServer is the server API for UserService service.
-// All implementations must embed UnimplementedUserServiceServer
+// All implementations should embed UnimplementedUserServiceServer
 // for forward compatibility
 type UserServiceServer interface {
 	Create(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	ReadAll(context.Context, *emptypb.Empty) (*ReadAllUserResponse, error)
-	mustEmbedUnimplementedUserServiceServer()
 }
 
-// UnimplementedUserServiceServer must be embedded to have forward compatible implementations.
+// UnimplementedUserServiceServer should be embedded to have forward compatible implementations.
 type UnimplementedUserServiceServer struct {
 }
 
@@ -72,7 +71,6 @@ func (UnimplementedUserServiceServer) Create(context.Context, *CreateUserRequest
 func (UnimplementedUserServiceServer) ReadAll(context.Context, *emptypb.Empty) (*ReadAllUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReadAll not implemented")
 }
-func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 
 // UnsafeUserServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to UserServiceServer will
@@ -95,7 +93,7 @@ func _UserService_Create_Handler(srv interface{}, ctx context.Context, dec func(
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/grpc_service.UserService/Create",
+		FullMethod: "/v1.UserService/Create",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServiceServer).Create(ctx, req.(*CreateUserRequest))
@@ -113,7 +111,7 @@ func _UserService_ReadAll_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/grpc_service.UserService/ReadAll",
+		FullMethod: "/v1.UserService/ReadAll",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServiceServer).ReadAll(ctx, req.(*emptypb.Empty))
@@ -125,7 +123,7 @@ func _UserService_ReadAll_Handler(srv interface{}, ctx context.Context, dec func
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var UserService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "grpc_service.UserService",
+	ServiceName: "v1.UserService",
 	HandlerType: (*UserServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

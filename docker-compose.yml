@@ -1,0 +1,26 @@
+version: '3'
+services:
+  db:
+    platform: linux/x86_64
+    image: mysql
+    build:
+      context: .
+      dockerfile: cmd/server/storage/Dockerfile
+    ports:
+      - "3307:3307"
+    volumes:
+      - ./cmd/server/storage:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: grpc_service
+  server:
+    build:
+      context: .
+      dockerfile: cmd/server/Dockerfile
+    ports:
+      - "80:9000" # http
+      - "443:443" # https
+    links:
+      - db

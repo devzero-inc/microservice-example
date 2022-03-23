@@ -1,0 +1,29 @@
+syntax = "proto3";
+package v1;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "service/v1";
+
+message User {
+    int64 id = 1;
+    string username = 2;
+    string email = 3;
+}
+
+message CreateUserRequest{
+    User user = 1;
+}
+
+message CreateUserResponse{
+    int64 id = 1;
+}
+
+message ReadAllUserResponse{
+    repeated User userlist = 1;
+}
+
+service UserService {
+    rpc Create(CreateUserRequest) returns (CreateUserResponse);
+    rpc ReadAll(google.protobuf.Empty) returns (ReadAllUserResponse);
+}

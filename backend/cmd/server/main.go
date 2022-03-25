@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	cmd "github.com/devzero-inc/grpc-service/pkg/cmd/server"
+	cmd "github.com/devzero-inc/grpc-service/backend/pkg/cmd/server"
 )
 
 func main() {

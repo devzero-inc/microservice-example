@@ -1,25 +1,19 @@
 FROM golang:alpine as builder
 
-RUN apk add --no-cache git
+EXPOSE 9090
 
-WORKDIR $GOPATH/src/github.com/devzero-inc/grpc-service/
+RUN apk add --no-cache git
+WORKDIR /app
+
+# copies all files from local into WORKDIR
 COPY . .
 
 RUN go mod tidy
 RUN go build ./cmd/server
-
-EXPOSE 9090
-
-ENTRYPOINT ["./cmd/server"]
-CMD ["./cmd/server/main"]
-
-FROM alpine:latest
 RUN apk --no-cache add bash curl ca-certificates
 
-WORKDIR /root/
-COPY --from=builder /go/src/github.com/devzero-inc/grpc-service/server .
-ENTRYPOINT ["bash", "-c", "/root/server -grpc-port=9090 -db-host=127.0.0.1:3306 -db-user=admin -db-password=password -db-schema=grpc_service"]
-
+# ENTRYPOINT ["./server"] # use after config is set up
+ENTRYPOINT ["bash", "-c", "/app/server -grpc-port=9090 -db-host=grpc-service-db:3306 -db-user=admin -db-password=password -db-schema=grpc_service"]
 
 
 # scratch

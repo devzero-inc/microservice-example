@@ -1,5 +1,5 @@
 # DevZero GRPC Service
-## Docker
+## Running the service with Docker
 ```
 docker-compose up
 
@@ -11,7 +11,7 @@ fdb509c5bd57   adminer               "entrypoint.sh docke…"   32 seconds ago  
 4ef48bf1fb54   mysql                 "docker-entrypoint.s…"   32 seconds ago   Up 31 seconds (healthy)   0.0.0.0:3306->3306/tcp, 33060/tcp                      db
 ```
 
-## Local setup + running the service without Docker
+## Local setup + running the service (without Docker)
 - requires golang + mysql to be installed locally
 ```
 make service

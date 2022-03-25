@@ -11,18 +11,18 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-// userServiceServer is implementation of v1.UserServiceServer proto interface
-type userServiceServer struct {
+// orderServiceServer is implementation of v1.OrderServiceServer proto interface
+type orderServiceServer struct {
 	db *sql.DB
 }
 
-// NewUserServiceServer creates user service
-func NewUserServiceServer(db *sql.DB) v1.UserServiceServer {
-	return &userServiceServer{db: db}
+// NewOrderService creates order service
+func NewOrderService(db *sql.DB) v1.OrderServiceServer {
+	return &orderServiceServer{db: db}
 }
 
 // connect returns SQL database connection from the pool
-func (s *userServiceServer) connect(ctx context.Context) (*sql.Conn, error) {
+func (s *orderServiceServer) connect(ctx context.Context) (*sql.Conn, error) {
 	c, err := s.db.Conn(ctx)
 	if err != nil {
 		return nil, status.Error(codes.Unknown, "failed to connect to database-> "+err.Error())
@@ -30,57 +30,63 @@ func (s *userServiceServer) connect(ctx context.Context) (*sql.Conn, error) {
 	return c, nil
 }
 
-// Create new user
-func (s *userServiceServer) Create(ctx context.Context, req *v1.CreateUserRequest) (*v1.CreateUserResponse, error) {
+// Create an order
+func (s *orderServiceServer) CreateOrder(ctx context.Context, req *v1.CreateOrderRequest) (*v1.CreateOrderResponse, error) {
 	conn, err := s.connect(ctx)
 	if err != nil {
 		log.Println("Error in connecting to database", err)
 	}
 	defer conn.Close()
 
-	result, err := conn.ExecContext(context.Background(), "insert into users (username, email) values (?, ?)", req.User.GetUsername(), req.User.GetEmail())
+	orderResult, err := conn.ExecContext(context.Background(), "insert into orders (customer_name) values (?)", req.CustomerName)
 	if err != nil {
-		return nil, status.Error(codes.Unknown, "failed to insert into users-> "+err.Error())
+		return nil, status.Error(codes.Unknown, "failed to create order -> "+err.Error())
 	}
 
-	// get id of last inserted user
-	id, err := result.LastInsertId()
+	orderID, err := orderResult.LastInsertId()
 	if err != nil {
-		return nil, status.Error(codes.Unknown, "failed to retrieve id for created user-> "+err.Error())
+		return nil, status.Error(codes.Unknown, "failed to retrieve id for created order -> "+err.Error())
 	}
 
-	return &v1.CreateUserResponse{
-		Id: id,
+	for _, item := range req.OrderItems {
+		_, err := conn.ExecContext(context.Background(), "insert into order_items (order_id, menu_item_id, quantity) values (?, ?, ?)", orderID, item.MenuItemID, item.Quantity)
+		if err != nil {
+			return nil, status.Error(codes.Unknown, "failed to create order_items -> "+err.Error())
+		}
+	}
+
+	return &v1.CreateOrderResponse{
+		Id: orderID,
 	}, nil
 }
 
-func (s *userServiceServer) ReadAll(ctx context.Context, req *empty.Empty) (*v1.ReadAllUserResponse, error) {
+func (s *orderServiceServer) ReadAllMenuItems(ctx context.Context, req *empty.Empty) (*v1.ReadAllMenuItemsResponse, error) {
 	conn, err := s.connect(ctx)
 	if err != nil {
 		log.Println("Error in connecting to database", err)
 	}
 	defer conn.Close()
 
-	rows, err := conn.QueryContext(context.Background(), "select * from users")
+	rows, err := conn.QueryContext(context.Background(), "select * from menu_items")
 	if err != nil {
-		return nil, status.Error(codes.Unknown, "failed to read from users-> "+err.Error())
+		return nil, status.Error(codes.Unknown, "failed to read from menu_items -> "+err.Error())
 	}
 	defer rows.Close()
 
-	userList := []*v1.User{}
+	menuItemsList := []*v1.MenuItem{}
 	for rows.Next() {
-		var user = new(v1.User)
-		if err := rows.Scan(&user.Id, &user.Username, &user.Email); err != nil {
-			return nil, status.Error(codes.Unknown, "failed to retrieve field values from users row-> "+err.Error())
+		var menuItem = new(v1.MenuItem)
+		if err := rows.Scan(&menuItem.Id, &menuItem.Name, &menuItem.Description); err != nil {
+			return nil, status.Error(codes.Unknown, "failed to retrieve field values from menu_items row-> "+err.Error())
 		}
-		userList = append(userList, user)
+		menuItemsList = append(menuItemsList, menuItem)
 	}
 
 	if err := rows.Err(); err != nil {
-		return nil, status.Error(codes.Unknown, "failed to retrieve data from users table-> "+err.Error())
+		return nil, status.Error(codes.Unknown, "failed to retrieve data from menu_items table-> "+err.Error())
 	}
 
-	return &v1.ReadAllUserResponse{
-		Userlist: userList,
+	return &v1.ReadAllMenuItemsResponse{
+		MenuItemsList: menuItemsList,
 	}, nil
 }

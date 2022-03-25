@@ -66,6 +66,6 @@ func RunServer() error {
 	}
 	defer db.Close()
 
-	v1API := v1.NewUserServiceServer(db)
+	v1API := v1.NewOrderService(db)
 	return grpc.RunServer(ctx, v1API, cfg.GRPCPort)
 }

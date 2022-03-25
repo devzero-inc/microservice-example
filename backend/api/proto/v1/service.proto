@@ -5,25 +5,31 @@ import "google/protobuf/empty.proto";
 
 option go_package = "service/v1";
 
-message User {
+message MenuItem {
     int64 id = 1;
-    string username = 2;
-    string email = 3;
+    string name = 2;
+    string description = 3;
 }
 
-message CreateUserRequest{
-    User user = 1;
+message OrderItem {
+    int64 menuItemID = 1;
+    int64 quantity = 2;
 }
 
-message CreateUserResponse{
+message CreateOrderRequest{
+    repeated OrderItem orderItems = 1;
+    string customerName = 2;
+}
+
+message CreateOrderResponse{
     int64 id = 1;
 }
 
-message ReadAllUserResponse{
-    repeated User userlist = 1;
+message ReadAllMenuItemsResponse{
+    repeated MenuItem menuItemsList = 1;
 }
 
-service UserService {
-    rpc Create(CreateUserRequest) returns (CreateUserResponse);
-    rpc ReadAll(google.protobuf.Empty) returns (ReadAllUserResponse);
+service OrderService {
+    rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);
+    rpc ReadAllMenuItems(google.protobuf.Empty) returns (ReadAllMenuItemsResponse);
 }

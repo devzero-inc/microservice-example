@@ -7,11 +7,11 @@ services:
     hostname: grpc-service-db
     build:
       context: .
-      dockerfile: backend/cmd/server/storage/Dockerfile
+      dockerfile: backend-service/cmd/server/storage/Dockerfile
     ports:
       - "3306:3306"
     volumes:
-      - ./backend/cmd/server/storage:/docker-entrypoint-initdb.d
+      - ./backend-service/cmd/server/storage:/docker-entrypoint-initdb.d
     environment:
       MYSQL_USER: admin
       MYSQL_PASSWORD: password
@@ -27,7 +27,7 @@ services:
   server:
     build:
       context: .
-      dockerfile: backend/Dockerfile
+      dockerfile: backend-service/Dockerfile
     depends_on:
       db:
         condition: service_healthy

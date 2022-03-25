@@ -8,8 +8,8 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 
-	"github.com/devzero-inc/grpc-service/backend/pkg/protocol/grpc"
-	v1 "github.com/devzero-inc/grpc-service/backend/pkg/service"
+	"github.com/devzero-inc/grpc-service/backend-service/pkg/protocol/grpc"
+	v1 "github.com/devzero-inc/grpc-service/backend-service/pkg/service"
 )
 
 // Config is configuration for Server

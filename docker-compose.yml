@@ -1,0 +1,42 @@
+version: '3'
+services:
+  db:
+    container_name: db
+    platform: linux/x86_64
+    image: mysql
+    hostname: grpc-service-db
+    build:
+      context: .
+      dockerfile: cmd/server/storage/Dockerfile
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./cmd/server/storage:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: grpc_service
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    healthcheck:
+      test: mysql -h grpc-service-db -P 3306 --user=$$MYSQL_USER --password=$$MYSQL_PASSWORD -e 'SHOW DATABASES;'
+      start_period: 10s
+      interval: 1s
+      timeout: 6s
+      retries: 30
+  server:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "80:9000" # http
+      - "443:443" # https
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

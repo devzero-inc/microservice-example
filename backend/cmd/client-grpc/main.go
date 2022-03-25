@@ -11,11 +11,6 @@ import (
 	"google.golang.org/grpc"
 )
 
-const (
-	// apiVersion is version of API is provided by server
-	apiVersion = "v1"
-)
-
 func main() {
 	// get configuration
 	address := flag.String("server", "", "gRPC server in format host:port")

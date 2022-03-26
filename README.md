@@ -11,13 +11,14 @@ fdb509c5bd57   adminer               "entrypoint.sh docke…"   32 seconds ago  
 4ef48bf1fb54   mysql                 "docker-entrypoint.s…"   32 seconds ago   Up 31 seconds (healthy)   0.0.0.0:3306->3306/tcp, 33060/tcp                      db
 ```
 
-## Local setup + running the service (without Docker)
+## Local setup + running the backend service (without Docker)
 - requires golang + mysql to be installed locally
 ```
-make service
+cd backend
+make serve
 ```
 
-## automatically create a new user, fetch all users
+## automatically fetch all menu items, create an order
 ```
 # new window
 make run
@@ -28,15 +29,16 @@ make run
 # install grpcurl
 brew install grpcurl
 
-# fetch a list of all users
-grpcurl -plaintext 127.0.0.1:9090 v1.UserService.ReadAll
+# fetch a list of all menu items
+grpcurl -plaintext 127.0.0.1:9090 v1.OrderService.ReadAllMenuItems
 
-# create a new user
-grpcurl -d '{"user": {"username": "BuddyTheElf","email": "buddy@northpole.io"}}' -plaintext 127.0.0.1:9090 v1.UserService.Create
+# create a new order
+grpcurl -d '{"orderItems": {"menuItemID": 6, "quantity": 2}}' -plaintext 127.0.0.1:9090 v1.OrderService.CreateOrder
 ```
 
 ## TODO:
-- dockerize the service
-- dockerize the DB
-- general cleanup
-- add a "theme" / use case
+[X] dockerize the service
+[X] dockerize the DB
+[X] add a "theme" / use case
+[ ] launch from config
+[ ] general cleanup

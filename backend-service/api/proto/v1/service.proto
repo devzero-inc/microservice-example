@@ -1,0 +1,35 @@
+syntax = "proto3";
+package v1;
+
+import "google/protobuf/empty.proto";
+
+option go_package = "service/v1";
+
+message MenuItem {
+    int64 id = 1;
+    string name = 2;
+    string description = 3;
+}
+
+message OrderItem {
+    int64 menuItemID = 1;
+    int64 quantity = 2;
+}
+
+message CreateOrderRequest{
+    repeated OrderItem orderItems = 1;
+    string customerName = 2;
+}
+
+message CreateOrderResponse{
+    int64 id = 1;
+}
+
+message ReadAllMenuItemsResponse{
+    repeated MenuItem menuItemsList = 1;
+}
+
+service OrderService {
+    rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);
+    rpc ReadAllMenuItems(google.protobuf.Empty) returns (ReadAllMenuItemsResponse);
+}

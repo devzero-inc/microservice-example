@@ -9,7 +9,7 @@ WORKDIR /app
 COPY . .
 
 RUN go mod tidy
-RUN go build ./cmd/server
+RUN go build ./backend-service/cmd/server
 RUN apk --no-cache add bash curl ca-certificates
 
 # ENTRYPOINT ["./server"] # use after config is set up

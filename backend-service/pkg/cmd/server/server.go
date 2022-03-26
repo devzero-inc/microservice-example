@@ -8,8 +8,8 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 
-	"github.com/devzero-inc/grpc-service/pkg/protocol/grpc"
-	v1 "github.com/devzero-inc/grpc-service/pkg/service"
+	"github.com/devzero-inc/grpc-service/backend-service/pkg/protocol/grpc"
+	v1 "github.com/devzero-inc/grpc-service/backend-service/pkg/service"
 )
 
 // Config is configuration for Server
@@ -66,6 +66,6 @@ func RunServer() error {
 	}
 	defer db.Close()
 
-	v1API := v1.NewUserServiceServer(db)
+	v1API := v1.NewOrderService(db)
 	return grpc.RunServer(ctx, v1API, cfg.GRPCPort)
 }

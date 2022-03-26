@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"log"
+	"strings"
 
 	v1 "github.com/devzero-inc/grpc-service/backend-service/pkg/api/service/v1"
 	"github.com/golang/protobuf/ptypes/empty"
@@ -37,6 +38,14 @@ func (s *orderServiceServer) CreateOrder(ctx context.Context, req *v1.CreateOrde
 		log.Println("Error in connecting to database", err)
 	}
 	defer conn.Close()
+
+	if len(strings.TrimSpace(req.CustomerName)) == 0 {
+		return nil, status.Error(codes.InvalidArgument, "Customer name cannot be empty")
+	}
+
+	if len(req.OrderItems) < 1 {
+		return nil, status.Error(codes.InvalidArgument, "Order must have at least one item")
+	}
 
 	orderResult, err := conn.ExecContext(context.Background(), "insert into orders (customer_name) values (?)", req.CustomerName)
 	if err != nil {

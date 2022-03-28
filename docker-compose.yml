@@ -33,6 +33,15 @@ services:
         condition: service_healthy
     ports:
       - "9090:9090" # http
+  api:
+    build:
+      context: .
+      dockerfile: api-service/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8333:8333" # http
 
   adminer:
     image: adminer

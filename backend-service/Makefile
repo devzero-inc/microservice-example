@@ -4,7 +4,7 @@ proto_out = ${root_dir}pkg/api
 
 mysql:
 	$(call colorecho, "Installing MySQL schema...")
-	mysql -h 127.0.0.1 -P 3306 -uroot -ppassword -D grpc_service < ${root_dir}cmd/server/storage/schema.sql
+	mysql -h 127.0.0.1 -P 3306 -uroot -ppassword -D backend_service < ${root_dir}cmd/server/storage/schema.sql
 
 proto:
 	protoc --go_out=${proto_out} --go-grpc_out=${proto_out} \
@@ -15,7 +15,7 @@ setup: proto mysql
 	go mod tidy
 
 serve: setup
-	go run cmd/server/main.go -grpc-port=9090 -db-host=127.0.0.1:3306 -db-user=root -db-password=password -db-schema=grpc_service
+	go run cmd/server/main.go -grpc-port=9090 -db-host=127.0.0.1:3306 -db-user=root -db-password=password -db-schema=backend_service
 
 run:
 	go run cmd/client-grpc/main.go -server=127.0.0.1:9090

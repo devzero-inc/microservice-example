@@ -4,7 +4,7 @@ services:
     container_name: db
     platform: linux/x86_64
     image: mysql
-    hostname: grpc-service-db
+    hostname: backend-service-db
     build:
       context: .
       dockerfile: backend-service/cmd/server/storage/Dockerfile
@@ -16,10 +16,10 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: password
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: grpc_service
+      MYSQL_DATABASE: backend_service
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     healthcheck:
-      test: mysql -h grpc-service-db -P 3306 --user=$$MYSQL_USER --password=$$MYSQL_PASSWORD -e 'SHOW DATABASES;'
+      test: mysql -h backend-service-db -P 3306 --user=$$MYSQL_USER --password=$$MYSQL_PASSWORD -e 'SHOW DATABASES;'
       start_period: 10s
       interval: 1s
       timeout: 6s

@@ -1,0 +1,17 @@
+# API service configuration
+api-service:
+  hostname: "api-service"
+  port: 8333
+
+# Backend (gRPC) service configuration
+backend-service:
+  hostname: "backend-service"
+  port: 9090
+
+# Database configuration
+database:
+  hostname: "backend-service-db"
+  port: 3306
+  username: "admin"
+  password: "password"
+  database_name: "backend_service"

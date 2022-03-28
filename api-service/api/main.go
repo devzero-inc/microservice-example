@@ -10,6 +10,7 @@ import (
 	"time"
 
 	pb "github.com/devzero-inc/grpc-service/backend-service/pkg/api/service/v1"
+	"github.com/devzero-inc/grpc-service/config"
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc"
 
@@ -17,7 +18,7 @@ import (
 )
 
 func getAllMenuItems(w http.ResponseWriter, r *http.Request) {
-	conn, err := grpc.Dial("localhost:9090", grpc.WithInsecure())
+	conn, err := grpc.Dial("backend-service:9090", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
@@ -35,7 +36,7 @@ func getAllMenuItems(w http.ResponseWriter, r *http.Request) {
 }
 
 func createOrder(w http.ResponseWriter, r *http.Request) {
-	conn, err := grpc.Dial("localhost:9090", grpc.WithInsecure())
+	conn, err := grpc.Dial("backend-service:9090", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
@@ -65,8 +66,15 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	var cfg config.Config
+	config.ReadFile(&cfg)
+	config.ReadEnv(&cfg)
+	fmt.Printf("Backend service config %+v, Database config %+v", cfg.BackendService, cfg.Database)
+
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/orders", createOrder).Methods("POST")
 	router.HandleFunc("/menu-items", getAllMenuItems).Methods("GET")
-	log.Fatal(http.ListenAndServe("localhost:8333", router))
+
+	host := fmt.Sprintf("%s:%s", cfg.APIService.Hostname, cfg.APIService.Port)
+	log.Fatal(http.ListenAndServe(host, router))
 }

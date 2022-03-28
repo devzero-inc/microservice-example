@@ -5,26 +5,23 @@ docker-compose up
 
 # the server will start after the DB is up + running
 $ docker ps
-CONTAINER ID   IMAGE                 COMMAND                  CREATED          STATUS                    PORTS                                                  NAMES
-75d0bffe6836   grpc-service_server   "bash -c '/app/serve…"   3 seconds ago    Up 2 seconds              0.0.0.0:443->443/tcp, 9090/tcp, 0.0.0.0:80->9000/tcp   grpc-service_server_1
-fdb509c5bd57   adminer               "entrypoint.sh docke…"   32 seconds ago   Up 31 seconds             0.0.0.0:8080->8080/tcp                                 grpc-service_adminer_1
-4ef48bf1fb54   mysql                 "docker-entrypoint.s…"   32 seconds ago   Up 31 seconds (healthy)   0.0.0.0:3306->3306/tcp, 33060/tcp                      db
+CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS                   PORTS                               NAMES
+1d81e1b9c4eb   grpc-service_api      "/app/api"               3 minutes ago   Up 3 minutes             0.0.0.0:8333->8333/tcp              grpc-service_api_1
+f8f96f0e8fa2   grpc-service_server   "./server"               3 minutes ago   Up 3 minutes             0.0.0.0:9090->9090/tcp              grpc-service_server_1
+39c73b290d35   adminer               "entrypoint.sh docke…"   4 minutes ago   Up 4 minutes             0.0.0.0:8080->8080/tcp              grpc-service_adminer_1
+f523ddf76916   mysql                 "docker-entrypoint.s…"   4 minutes ago   Up 4 minutes (healthy)   0.0.0.0:3306->3306/tcp, 33060/tcp   db
 ```
 
-## Running the API service (no docker yet)
-After `docker-compose up` is successful:
-```
-cd api-service
-go run .
-```
-## Making requests to the API service (no docker yet)
+## Running the Services
+`docker-compose build && docker-compose up`
+## Making requests to the API service
 ### Getting all menu items
 ```
-curl '127.0.0.1:8333/menu-items'
+curl 'api-service:8333/menu-items'
 ```
 ### Creating an order
 ```
-curl -X POST '127.0.0.1:8333/orders' \
+curl -X POST 'api-service:8333/orders' \
 -H 'Content-Type: application/json' \
 -D '{"orderItems": [
     {

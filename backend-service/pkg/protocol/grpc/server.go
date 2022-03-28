@@ -12,7 +12,6 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-// RunServer runs gRPC service to publish ToDo service
 func RunServer(ctx context.Context, v1API v1.OrderServiceServer, port string) error {
 	listen, err := net.Listen("tcp", ":"+port)
 	if err != nil {
@@ -30,7 +29,7 @@ func RunServer(ctx context.Context, v1API v1.OrderServiceServer, port string) er
 	go func() {
 		for range c {
 			// sig is a ^C, handle it
-			log.Println("shutting down gRPC server...")
+			log.Println("shutting down backend service...")
 
 			server.GracefulStop()
 
@@ -38,7 +37,6 @@ func RunServer(ctx context.Context, v1API v1.OrderServiceServer, port string) er
 		}
 	}()
 
-	// start gRPC server
-	log.Println("starting gRPC server...")
+	log.Println("starting backend service...")
 	return server.Serve(listen)
 }

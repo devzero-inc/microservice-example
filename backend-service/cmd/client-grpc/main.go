@@ -13,7 +13,7 @@ import (
 
 func main() {
 	// get configuration
-	address := flag.String("server", "", "gRPC server in format host:port")
+	address := flag.String("server", "", "backend service in format host:port")
 	flag.Parse()
 
 	// Set up a connection to the server.

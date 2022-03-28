@@ -1,6 +1,6 @@
 FROM golang:alpine
 
-RUN apk --no-cache add git bash curl ca-certificates
+RUN apk --no-cache add git bash curl ca-certificates busybox-extras
 WORKDIR /app
 
 COPY . .

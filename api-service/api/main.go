@@ -17,7 +17,7 @@ import (
 )
 
 func getAllMenuItems(w http.ResponseWriter, r *http.Request) {
-	conn, err := grpc.Dial("localhost:9090", grpc.WithInsecure())
+	conn, err := grpc.Dial("backend-service:9090", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
@@ -35,7 +35,7 @@ func getAllMenuItems(w http.ResponseWriter, r *http.Request) {
 }
 
 func createOrder(w http.ResponseWriter, r *http.Request) {
-	conn, err := grpc.Dial("localhost:9090", grpc.WithInsecure())
+	conn, err := grpc.Dial("backend-service:9090", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
@@ -68,5 +68,5 @@ func main() {
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/orders", createOrder).Methods("POST")
 	router.HandleFunc("/menu-items", getAllMenuItems).Methods("GET")
-	log.Fatal(http.ListenAndServe("localhost:8333", router))
+	log.Fatal(http.ListenAndServe("api-service:8333", router))
 }

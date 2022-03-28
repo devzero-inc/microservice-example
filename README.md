@@ -11,20 +11,16 @@ fdb509c5bd57   adminer               "entrypoint.sh docke…"   32 seconds ago  
 4ef48bf1fb54   mysql                 "docker-entrypoint.s…"   32 seconds ago   Up 31 seconds (healthy)   0.0.0.0:3306->3306/tcp, 33060/tcp                      db
 ```
 
-## Running the API service (no docker yet)
-After `docker-compose up` is successful:
-```
-cd api-service
-go run .
-```
+## Running the Services
+`docker-compose build && docker-compose up`
 ## Making requests to the API service (no docker yet)
 ### Getting all menu items
 ```
-curl '127.0.0.1:8333/menu-items'
+curl 'api-service:8333/menu-items'
 ```
 ### Creating an order
 ```
-curl -X POST '127.0.0.1:8333/orders' \
+curl -X POST 'api-service:8333/orders' \
 -H 'Content-Type: application/json' \
 -D '{"orderItems": [
     {

@@ -28,6 +28,7 @@ services:
     build:
       context: .
       dockerfile: backend-service/Dockerfile
+    hostname: backend-service
     depends_on:
       db:
         condition: service_healthy
@@ -37,12 +38,11 @@ services:
     build:
       context: .
       dockerfile: api-service/Dockerfile
+    hostname: api-service
     depends_on:
-      db:
-        condition: service_healthy
+      - server
     ports:
       - "8333:8333" # http
-
   adminer:
     image: adminer
     restart: always

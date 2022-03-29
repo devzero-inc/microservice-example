@@ -65,6 +65,27 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(res.Id)
 }
 
+func healthcheck(w http.ResponseWriter, r *http.Request) {
+	healthcheck := &pb.Healthcheck{
+		StatusCode: http.StatusOK,
+		Status:     http.StatusText(http.StatusOK),
+	}
+
+	conn, err := grpc.Dial("backend-service:9090", grpc.WithInsecure())
+	if err != nil {
+		log.Fatalf("did not connect: %v", err)
+		healthcheck = &pb.Healthcheck{
+			StatusCode: http.StatusInternalServerError,
+			Status:     http.StatusText(http.StatusInternalServerError),
+		}
+
+	}
+	defer conn.Close()
+
+	w.WriteHeader(int(healthcheck.StatusCode))
+	json.NewEncoder(w).Encode(healthcheck)
+}
+
 func main() {
 	var cfg config.Config
 	config.ReadFile(&cfg)
@@ -74,6 +95,7 @@ func main() {
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/orders", createOrder).Methods("POST")
 	router.HandleFunc("/menu-items", getAllMenuItems).Methods("GET")
+	router.HandleFunc("/healthcheck", healthcheck).Methods("GET")
 
 	host := fmt.Sprintf("%s:%s", cfg.APIService.Hostname, cfg.APIService.Port)
 	log.Fatal(http.ListenAndServe(host, router))

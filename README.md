@@ -65,5 +65,5 @@ grpcurl -d '{"orderItems": {"menuItemID": 6, "quantity": 2}}' -plaintext 127.0.0
 [X] dockerize the service
 [X] dockerize the DB
 [X] add a "theme" / use case
-[ ] launch from config
+[X] launch from config
 [ ] general cleanup

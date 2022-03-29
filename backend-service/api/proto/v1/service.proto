@@ -33,3 +33,8 @@ service OrderService {
     rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);
     rpc ReadAllMenuItems(google.protobuf.Empty) returns (ReadAllMenuItemsResponse);
 }
+
+message Healthcheck {
+    int64 statusCode = 1;
+    string status = 2;
+}

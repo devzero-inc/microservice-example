@@ -66,7 +66,11 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 }
 
 func healthcheck(w http.ResponseWriter, r *http.Request) {
-	var healthcheck *pb.Healthcheck
+	healthcheck := &pb.Healthcheck{
+		StatusCode: http.StatusOK,
+		Status:     http.StatusText(http.StatusOK),
+	}
+
 	conn, err := grpc.Dial("backend-service:9090", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
@@ -78,10 +82,7 @@ func healthcheck(w http.ResponseWriter, r *http.Request) {
 	}
 	defer conn.Close()
 
-	healthcheck = &pb.Healthcheck{
-		StatusCode: http.StatusOK,
-		Status:     http.StatusText(http.StatusOK),
-	}
+	w.WriteHeader(int(healthcheck.StatusCode))
 	json.NewEncoder(w).Encode(healthcheck)
 }
 

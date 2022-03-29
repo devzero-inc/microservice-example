@@ -21,9 +21,9 @@ services:
     healthcheck:
       test: mysql -h backend-service-db -P 3306 --user=$$MYSQL_USER --password=$$MYSQL_PASSWORD -e 'SHOW DATABASES;'
       start_period: 10s
-      interval: 1s
-      timeout: 6s
-      retries: 30
+      interval: 2s
+      timeout: 5s
+      retries: 20
   server:
     build:
       context: .
@@ -43,6 +43,11 @@ services:
       - server
     ports:
       - "8333:8333" # http
+    healthcheck:
+      test: curl --fail http://api-service:8333/healthcheck || exit 1;
+      interval: 1s
+      timeout: 5s
+      retries: 10
   adminer:
     image: adminer
     restart: always

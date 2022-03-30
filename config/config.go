@@ -31,7 +31,7 @@ func processError(err error) {
 }
 
 func ReadFile(cfg *Config) {
-	f, err := os.Open("/app/config/config.yml")
+	f, err := os.Open("./config/config.yml")
 	if err != nil {
 		processError(err)
 	}

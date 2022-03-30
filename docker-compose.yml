@@ -34,6 +34,8 @@ services:
         condition: service_healthy
     ports:
       - "9090:9090" # http
+    volumes:
+      - ./app
   api:
     build:
       context: .

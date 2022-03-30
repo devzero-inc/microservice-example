@@ -1,19 +1,17 @@
-# DevZero GRPC Service
-## Running the backend service with Docker
+# DevZero Microervice Example
+## Running the services (API, backend, database)
 ```
-docker-compose up
+`docker-compose build && docker-compose up`
 
 # the server will start after the DB is up + running
 $ docker ps
-CONTAINER ID   IMAGE                 COMMAND                  CREATED         STATUS                   PORTS                               NAMES
-1d81e1b9c4eb   grpc-service_api      "/app/api"               3 minutes ago   Up 3 minutes             0.0.0.0:8333->8333/tcp              grpc-service_api_1
-f8f96f0e8fa2   grpc-service_server   "./server"               3 minutes ago   Up 3 minutes             0.0.0.0:9090->9090/tcp              grpc-service_server_1
-39c73b290d35   adminer               "entrypoint.sh docke…"   4 minutes ago   Up 4 minutes             0.0.0.0:8080->8080/tcp              grpc-service_adminer_1
-f523ddf76916   mysql                 "docker-entrypoint.s…"   4 minutes ago   Up 4 minutes (healthy)   0.0.0.0:3306->3306/tcp, 33060/tcp   db
+CONTAINER ID   IMAGE                         COMMAND                  CREATED          STATUS                    PORTS                               NAMES
+e207881b1113   microservice-example_api      "/app/api"               19 seconds ago   Up 19 seconds (healthy)   0.0.0.0:8333->8333/tcp              microservice-example_api_1
+44871e520c2c   microservice-example_server   "./server"               19 seconds ago   Up 19 seconds             0.0.0.0:9090->9090/tcp              microservice-example_server_1
+a93d72fb09b5   mysql                         "docker-entrypoint.s…"   48 seconds ago   Up 47 seconds (healthy)   0.0.0.0:3306->3306/tcp, 33060/tcp   db
+5173f6d53321   adminer                       "entrypoint.sh docke…"   48 seconds ago   Up 47 seconds             0.0.0.0:8080->8080/tcp              microservice-example_adminer_1
 ```
 
-## Running the Services
-`docker-compose build && docker-compose up`
 ## Making requests to the API service
 ### Getting all menu items
 ```

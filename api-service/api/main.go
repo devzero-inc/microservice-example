@@ -90,7 +90,7 @@ func main() {
 	var cfg config.Config
 	config.ReadFile(&cfg)
 	config.ReadEnv(&cfg)
-	fmt.Printf("Backend service config %+v, Database config %+v", cfg.BackendService, cfg.Database)
+	fmt.Printf("API service config %+v", cfg.APIService)
 
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/orders", createOrder).Methods("POST")

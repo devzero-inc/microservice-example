@@ -11,10 +11,11 @@ import (
 
 	pb "github.com/devzero-inc/grpc-service/backend-service/pkg/api/service/v1"
 	"github.com/devzero-inc/grpc-service/config"
-	"github.com/golang/protobuf/ptypes/empty"
-	"google.golang.org/grpc"
 
+	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
+	"google.golang.org/grpc"
 )
 
 func getAllMenuItems(w http.ResponseWriter, r *http.Request) {
@@ -97,6 +98,11 @@ func main() {
 	router.HandleFunc("/menu-items", getAllMenuItems).Methods("GET")
 	router.HandleFunc("/healthcheck", healthcheck).Methods("GET")
 
+	corsOptions := cors.New(cors.Options{
+		AllowedOrigins: []string{"*//localhost:3000"},
+	})
+	handler := corsOptions.Handler(router)
+
 	host := fmt.Sprintf("%s:%s", cfg.APIService.Hostname, cfg.APIService.Port)
-	log.Fatal(http.ListenAndServe(host, router))
+	log.Fatal(http.ListenAndServe(host, handler))
 }

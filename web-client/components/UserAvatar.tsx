@@ -1,5 +1,5 @@
-import PersonIcon from "@mui/icons-material/Person";
 import { Card } from "@mui/material";
+import CoffeeIcon from "@mui/icons-material/Coffee";
 
 export default function UserAvatar() {
   const [height, width] = [48, 48];
@@ -14,7 +14,7 @@ export default function UserAvatar() {
         justifyContent: "center",
       }}
     >
-      <PersonIcon
+      <CoffeeIcon
         sx={{
           fontSize: width * 0.75,
         }}

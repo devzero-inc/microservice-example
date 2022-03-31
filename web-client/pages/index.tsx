@@ -1,5 +1,5 @@
 import Layout from "../components/Layout";
-import { Box, Typography } from "@mui/material";
+import { Grid, Box, Typography } from "@mui/material";
 import axios from "axios";
 import MenuItems from "../components/MenuItems";
 
@@ -16,10 +16,19 @@ export default function Home() {
   ];
   return (
     <Layout>
-      <Box>
-        <Typography>Hello</Typography>
-        <MenuItems data={menuItemData} />
-      </Box>
+      <Grid container spacing={2}>
+        <Grid container item md={8} spacing={2}>
+          <Grid item md={12}>
+            <Typography>Menu Items</Typography>
+          </Grid>
+          <MenuItems data={menuItemData} />
+        </Grid>
+        <Grid container item md={4} spacing={2}>
+          <Grid item md={12}>
+            <Typography>Cart</Typography>
+          </Grid>
+        </Grid>
+      </Grid>
     </Layout>
   );
 }

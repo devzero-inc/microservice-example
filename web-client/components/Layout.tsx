@@ -15,8 +15,7 @@ const mdTheme = createTheme({
       main: "#3F51B5",
     },
   },
-}
-);
+});
 
 function Layout(props: LayoutProps) {
   const { children } = props;

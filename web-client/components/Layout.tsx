@@ -9,10 +9,11 @@ interface LayoutProps {
   children: ReactNode;
 }
 
+// 19 124 112
 const mdTheme = createTheme({
   palette: {
     primary: {
-      main: "#3F51B5",
+      main: "#137C70",
     },
   },
 });

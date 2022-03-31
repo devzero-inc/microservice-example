@@ -11,10 +11,11 @@ import (
 
 	pb "github.com/devzero-inc/grpc-service/backend-service/pkg/api/service/v1"
 	"github.com/devzero-inc/grpc-service/config"
-	"github.com/golang/protobuf/ptypes/empty"
-	"google.golang.org/grpc"
 
+	"github.com/golang/protobuf/ptypes/empty"
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
+	"google.golang.org/grpc"
 )
 
 func getAllMenuItems(w http.ResponseWriter, r *http.Request) {
@@ -90,13 +91,18 @@ func main() {
 	var cfg config.Config
 	config.ReadFile(&cfg)
 	config.ReadEnv(&cfg)
-	fmt.Printf("Backend service config %+v, Database config %+v", cfg.BackendService, cfg.Database)
+	fmt.Printf("API Service config %+v", cfg.APIService)
 
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/orders", createOrder).Methods("POST")
 	router.HandleFunc("/menu-items", getAllMenuItems).Methods("GET")
 	router.HandleFunc("/healthcheck", healthcheck).Methods("GET")
 
+	corsOptions := cors.New(cors.Options{
+		AllowedOrigins: cfg.APIService.AllowedOrigins,
+	})
+	handler := corsOptions.Handler(router)
+
 	host := fmt.Sprintf("%s:%s", cfg.APIService.Hostname, cfg.APIService.Port)
-	log.Fatal(http.ListenAndServe(host, router))
+	log.Fatal(http.ListenAndServe(host, handler))
 }

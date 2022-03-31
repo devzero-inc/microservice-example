@@ -2,6 +2,8 @@
 api-service:
   hostname: "api-service"
   port: 8333
+  allowed_origins:
+    - "*//localhost:3000"
 
 # Backend (gRPC) service configuration
 backend-service:

@@ -91,7 +91,7 @@ func main() {
 	var cfg config.Config
 	config.ReadFile(&cfg)
 	config.ReadEnv(&cfg)
-	fmt.Printf("Backend service config %+v, Database config %+v", cfg.BackendService, cfg.Database)
+	fmt.Printf("API Service config %+v", cfg.APIService)
 
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/orders", createOrder).Methods("POST")
@@ -99,7 +99,7 @@ func main() {
 	router.HandleFunc("/healthcheck", healthcheck).Methods("GET")
 
 	corsOptions := cors.New(cors.Options{
-		AllowedOrigins: []string{"*//localhost:3000"},
+		AllowedOrigins: cfg.APIService.AllowedOrigins,
 	})
 	handler := corsOptions.Handler(router)
 

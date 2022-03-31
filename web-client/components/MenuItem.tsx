@@ -1,15 +1,17 @@
-import { Card, Typography } from "@mui/material";
+import { Grid, Card, Typography } from "@mui/material";
 
-interface MentItemInterface {
+export type ModelMenuItem = {
   id: number;
   name: string;
   description: string;
-}
-export default function MenuItem({ id, name, description }: MentItemInterface) {
+};
+export default function MenuItem({ id, name, description }: ModelMenuItem) {
   return (
-    <Card sx={{ mt: 2, p: 2 }}>
-      <Typography>{name}</Typography>
-      <Typography>{description}</Typography>
-    </Card>
+    <Grid item md={4} lg={4}>
+      <Card sx={{ mt: 2, p: 2, height: 200 }}>
+        <Typography>{name}</Typography>
+        <Typography>{description}</Typography>
+      </Card>
+    </Grid>
   );
 }

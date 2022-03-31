@@ -32,6 +32,9 @@ function Header() {
           pr: "24px",
         }}
       >
+        <IconButton color="inherit">
+          <UserAvatar />
+        </IconButton>
         <Typography
           component="h1"
           variant="h6"
@@ -39,11 +42,8 @@ function Header() {
           noWrap
           sx={{ flexGrow: 1 }}
         >
-          DevZero
+          DevZero Cafe
         </Typography>
-        <IconButton color="inherit">
-          <UserAvatar />
-        </IconButton>
       </Toolbar>
     </AppBar>
   );

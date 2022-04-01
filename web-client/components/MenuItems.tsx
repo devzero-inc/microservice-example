@@ -6,8 +6,8 @@ interface MenuItemsInterface {
 }
 export default function MenuItems({ data }: MenuItemsInterface) {
   if (!data) return null;
-  console.log(data);
-  return data.map((item: ModelMenuItem) => (
+
+  return data.data.map((item: ModelMenuItem) => (
     <MenuItem key={item.id} {...item} />
   ));
 }

@@ -23,7 +23,7 @@ export default function MenuItem({ id, name, description }: ModelMenuItem) {
           mt: 2,
           p: 2,
           height: 200,
-          borderTop: `8px solid ${devZeroYellow1}`,
+          borderTop: `8px solid #444`,
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",

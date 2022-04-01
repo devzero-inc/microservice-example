@@ -33,6 +33,7 @@ func (s *orderServiceServer) connect(ctx context.Context) (*sql.Conn, error) {
 
 // Create an order
 func (s *orderServiceServer) CreateOrder(ctx context.Context, req *v1.CreateOrderRequest) (*v1.CreateOrderResponse, error) {
+	log.Println("Backend service: creating order")
 	conn, err := s.connect(ctx)
 	if err != nil {
 		log.Println("Error in connecting to database", err)
@@ -70,6 +71,7 @@ func (s *orderServiceServer) CreateOrder(ctx context.Context, req *v1.CreateOrde
 }
 
 func (s *orderServiceServer) ReadAllMenuItems(ctx context.Context, req *empty.Empty) (*v1.ReadAllMenuItemsResponse, error) {
+	log.Println("Backend service: reading all menu items")
 	conn, err := s.connect(ctx)
 	if err != nil {
 		log.Println("Error in connecting to database", err)

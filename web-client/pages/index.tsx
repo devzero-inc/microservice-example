@@ -3,10 +3,13 @@ import { Grid, Box, Typography } from "@mui/material";
 import axios from "axios";
 import MenuItems from "../components/MenuItems";
 import { useState, useEffect } from "react";
+import CartItems from "../components/CartItems";
 
 export default function Home() {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
+  const [cartData, setCartData] = useState(null);
+  const [customerData, setCustomerData] = useState(null);
 
   useEffect(() => {
     async function fetchMenuItems() {
@@ -31,6 +34,7 @@ export default function Home() {
         <Grid container item md={4} spacing={2}>
           <Grid item md={12}>
             <Typography>Cart</Typography>
+            <CartItems cartData={cartData} />
           </Grid>
         </Grid>
       </Grid>

@@ -4,8 +4,7 @@ import axios from "axios";
 import MenuItems from "../components/MenuItems";
 
 export default function Home() {
-  const menuItemData = axios.get("http://localhost:8333/menu-items");
-  // const menuItemData = axios.get("https://sstzlvgm.devinfra.dev0.run/proxy/8333/menu-items");
+const menuItemData = axios.get("/proxy/8333/menu-items");
   console.log(menuItemData);
   // const menuItemData = [
   //   { id: 1, name: "Drip coffee", description: "Fast, simple, delicious" },

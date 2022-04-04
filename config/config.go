@@ -10,9 +10,8 @@ import (
 
 type Config struct {
 	APIService struct {
-		Hostname       string `yaml:"hostname" envconfig:"API_HOSTNAME"`
-		Port           string `yaml:"port" envconfig:"API_PORT"`
-		AllowedOrigins []string `yaml:"allowed_origins" envconfig:"API_ALLOWED_ORIGINS"`
+		Hostname string `yaml:"hostname" envconfig:"API_HOSTNAME"`
+		Port     string `yaml:"port" envconfig:"API_PORT"`
 	} `yaml:"api-service"`
 	BackendService struct {
 		Hostname string `yaml:"hostname" envconfig:"BACKEND_HOSTNAME"`

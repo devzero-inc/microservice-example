@@ -45,7 +45,7 @@ services:
       - "8333:8333" # http
     healthcheck:
       test: curl --fail http://api-service:8333/healthcheck || exit 1;
-      interval: 1s
+      interval: 5s
       timeout: 5s
       retries: 10
   adminer:

@@ -13,9 +13,10 @@ export type ModelMenuItem = {
   description: string;
 };
 
-const devZeroYellow2 = "#C3B146";
-const devZeroYellow1 = "#D3BD5A";
 export default function MenuItem({ id, name, description }: ModelMenuItem) {
+  const addToCart = () => {
+    console.log(name);
+  };
   return (
     <Grid item md={4} lg={4}>
       <Card
@@ -23,7 +24,7 @@ export default function MenuItem({ id, name, description }: ModelMenuItem) {
           mt: 2,
           p: 2,
           height: 200,
-          borderTop: `8px solid ${devZeroYellow1}`,
+          borderTop: `8px solid #444`,
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
@@ -36,7 +37,7 @@ export default function MenuItem({ id, name, description }: ModelMenuItem) {
           <Typography variant="body2">{description}</Typography>
         </CardContent>
         <CardActions>
-          <Button variant="contained" color="success">
+          <Button variant="contained" color="success" onClick={addToCart}>
             Add to cart
           </Button>
         </CardActions>

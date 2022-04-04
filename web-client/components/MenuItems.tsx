@@ -1,10 +1,13 @@
 import MenuItem from "./MenuItem";
 import { ModelMenuItem } from "./MenuItem";
 
-export default function MenuItems({ data }: ModelMenuItem[]) {
+interface MenuItemsInterface {
+  data: ModelMenuItem[];
+}
+export default function MenuItems({ data }: MenuItemsInterface) {
   if (!data) return null;
-  console.log(data);
-  // return data.map((item: ModelMenuItem) => (
-  //   <MenuItem key={item.id} {...item} />
-  // ));
+
+  return data.data.map((item: ModelMenuItem) => (
+    <MenuItem key={item.id} {...item} />
+  ));
 }

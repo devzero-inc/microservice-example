@@ -18,6 +18,7 @@ import (
 )
 
 func getAllMenuItems(w http.ResponseWriter, r *http.Request) {
+	log.Println("API: gtting all menu items")
 	conn, err := grpc.Dial("backend-service:9090", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
@@ -36,6 +37,7 @@ func getAllMenuItems(w http.ResponseWriter, r *http.Request) {
 }
 
 func createOrder(w http.ResponseWriter, r *http.Request) {
+	log.Println("API: creating order")
 	conn, err := grpc.Dial("backend-service:9090", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
@@ -81,6 +83,8 @@ func healthcheck(w http.ResponseWriter, r *http.Request) {
 
 	}
 	defer conn.Close()
+
+	log.Printf("Healthcheck status: '%s'", healthcheck.Status)
 
 	w.WriteHeader(int(healthcheck.StatusCode))
 	json.NewEncoder(w).Encode(healthcheck)

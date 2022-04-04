@@ -1,5 +1,7 @@
 # DevZero Microervice Example
+
 ## Running the services (API, backend, database)
+
 ```
 `docker-compose build && docker-compose up`
 
@@ -13,11 +15,15 @@ a93d72fb09b5   mysql                         "docker-entrypoint.s…"   48 secon
 ```
 
 ## Making requests to the API service
+
 ### Getting all menu items
+
 ```
 curl 'api-service:8333/menu-items'
 ```
+
 ### Creating an order
+
 ```
 curl -X POST 'api-service:8333/orders' \
 -H 'Content-Type: application/json' \
@@ -33,21 +39,24 @@ curl -X POST 'api-service:8333/orders' \
 ], "customerName": "Sharon"}'
 ```
 
-
 ## Local setup + running the backend service (without Docker)
+
 - requires golang + mysql to be installed locally
+
 ```
 cd backend
 make serve
 ```
 
 ## automatically fetch all menu items, create an order
+
 ```
 # new window
 make run
 ```
 
 ## manually calling the service
+
 ```
 # install grpcurl
 brew install grpcurl
@@ -59,7 +68,14 @@ grpcurl -plaintext 127.0.0.1:9090 v1.OrderService.ReadAllMenuItems
 grpcurl -d '{"orderItems": {"menuItemID": 6, "quantity": 2}}' -plaintext 127.0.0.1:9090 v1.OrderService.CreateOrder
 ```
 
+## Front End Stuff
+
+Make sure to forward ports 3000 and 8333.
+3000 must be forwarded so that the front end can be viewed in browser.
+8333 must be forwarded so that the front end can hit the API.
+
 ## TODO:
+
 [X] dockerize the service
 [X] dockerize the DB
 [X] add a "theme" / use case

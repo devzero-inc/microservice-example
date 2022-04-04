@@ -1,3 +1,4 @@
+import { createContext } from "react";
 import Layout from "../components/Layout";
 import { Grid, Box, Typography } from "@mui/material";
 import axios from "axios";
@@ -21,23 +22,28 @@ export default function Home() {
     fetchMenuItems();
   }, []);
 
+  const Context = createContext(cartData);
+  const contextValues = { cartData };
+
   // if (!menuItemData) return <div>Loading</div>;
   return (
     <Layout>
-      <Grid container spacing={2}>
-        <Grid container item md={8} spacing={2}>
-          <Grid item md={12}>
-            <Typography>Menu Items</Typography>
+      <Context.Provider value={contextValues}>
+        <Grid container spacing={2}>
+          <Grid container item md={8} spacing={2}>
+            <Grid item md={12}>
+              <Typography>Menu Items</Typography>
+            </Grid>
+            <MenuItems data={data} />
           </Grid>
-          <MenuItems data={data} />
-        </Grid>
-        <Grid container item md={4} spacing={2}>
-          <Grid item md={12}>
-            <Typography>Cart</Typography>
-            <CartItems cartData={cartData} />
+          <Grid container item md={4} spacing={2}>
+            <Grid item md={12}>
+              <Typography>Cart</Typography>
+              <CartItems cartData={cartData} />
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </Context.Provider>
     </Layout>
   );
 }

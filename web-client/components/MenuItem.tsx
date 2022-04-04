@@ -14,6 +14,9 @@ export type ModelMenuItem = {
 };
 
 export default function MenuItem({ id, name, description }: ModelMenuItem) {
+  const addToCart = () => {
+    console.log(name);
+  };
   return (
     <Grid item md={4} lg={4}>
       <Card

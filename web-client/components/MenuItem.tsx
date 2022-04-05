@@ -6,17 +6,21 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
+import { Dispatch } from "react";
 
 export type ModelMenuItem = {
   id: number;
   name: string;
   description: string;
+  setCartData: Dispatch<any>;
 };
 
-export default function MenuItem({ id, name, description }: ModelMenuItem) {
-  const addToCart = () => {
-    console.log(name);
-  };
+export default function MenuItem({
+  id,
+  name,
+  description,
+  setCartData,
+}: ModelMenuItem) {
   return (
     <Grid item md={4} lg={4}>
       <Card
@@ -37,7 +41,12 @@ export default function MenuItem({ id, name, description }: ModelMenuItem) {
           <Typography variant="body2">{description}</Typography>
         </CardContent>
         <CardActions>
-          <Button variant="contained" color="success" onClick={addToCart}>
+          <Button
+            variant="contained"
+            onClick={() =>
+              setCartData({ type: "ADD", data: { id, name, description } })
+            }
+          >
             Add to cart
           </Button>
         </CardActions>

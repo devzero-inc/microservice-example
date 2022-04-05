@@ -22,25 +22,24 @@ export default function Home() {
   const cartReducer = (state: any, action: { type: string; data: any }) => {
     const newState = JSON.parse(JSON.stringify(state));
     const { type, data } = action;
-    const { id } = data;
 
     const addItemToCart = () => {
       let quantity;
-      const keyExists = state && id in state;
+      const keyExists = state && data.id in state;
       if (keyExists) {
-        const currQuantity = newState[id].quantity;
+        const currQuantity = newState[data.id].quantity;
         quantity = currQuantity + 1;
       } else {
         quantity = 1;
       }
-      return { [id]: { ...data, quantity } };
+      return { [data.id]: { ...data, quantity } };
     };
 
     const decrementItem = () => {
-      if (newState[id].quantity === 1) {
-        delete newState[id];
+      if (newState[data.id].quantity === 1) {
+        delete newState[data.id];
       } else {
-        newState[id].quantity -= 1;
+        newState[data.id].quantity -= 1;
       }
     };
 
@@ -49,11 +48,13 @@ export default function Home() {
         const newItem = addItemToCart();
         return { ...newState, ...newItem };
       case "INCREMENT":
-        newState[id].quantity += 1;
+        newState[data.id].quantity += 1;
         return { ...newState };
       case "DECREMENT":
         decrementItem();
         return { ...newState };
+      case "EMPTY":
+        return {};
     }
   };
   const [menuData, setMenuData] = useState(null);

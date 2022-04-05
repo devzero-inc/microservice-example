@@ -27,7 +27,7 @@ export default function CartItems({ cartData, setCartData }: CartItemsIx) {
   return (
     <>
       <Stack>{cartItems}</Stack>
-      <CartForm orderData={cartArray} />
+      <CartForm orderData={cartArray} setCartData={setCartData} />
     </>
   );
 }

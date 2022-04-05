@@ -1,13 +1,15 @@
+import CartForm from "./CartForm";
 import { Dispatch } from "react";
 import CartItem from "./CartItem";
-import { Stack, Typography } from "@mui/material";
+import { Button, TextField, Stack, Typography } from "@mui/material";
 import { CartItemType, CartDataType } from "../pages/index";
 
-type CartArrayType = [] | CartItemType[];
+export type CartArrayType = [] | CartItemType[];
 interface CartItemsIx {
   cartData: CartDataType;
   setCartData: Dispatch<any>;
 }
+
 export default function CartItems({ cartData, setCartData }: CartItemsIx) {
   if (!cartData || Object.keys(cartData).length < 1)
     return <Typography>Your cart is empty :(</Typography>;
@@ -25,7 +27,7 @@ export default function CartItems({ cartData, setCartData }: CartItemsIx) {
   return (
     <>
       <Stack>{cartItems}</Stack>
-      <form></form>
+      <CartForm orderData={cartArray} />
     </>
   );
 }

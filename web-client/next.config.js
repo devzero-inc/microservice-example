@@ -2,6 +2,6 @@
 const nextConfig = {
   assetPrefix: "/proxy/3000",
   reactStrictMode: true,
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

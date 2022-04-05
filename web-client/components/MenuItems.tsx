@@ -1,13 +1,19 @@
+import { Dispatch } from "react";
 import MenuItem from "./MenuItem";
 import { ModelMenuItem } from "./MenuItem";
 
 interface MenuItemsInterface {
-  data: ModelMenuItem[];
+  menuData: ModelMenuItem[] | null;
+  setCartData: Dispatch<any>;
 }
-export default function MenuItems({ data }: MenuItemsInterface) {
-  if (!data) return null;
+export default function MenuItems({
+  menuData,
+  setCartData,
+}: MenuItemsInterface) {
+  if (!menuData) return null;
 
-  return data.data.map((item: ModelMenuItem) => (
-    <MenuItem key={item.id} {...item} />
+  const menuItems = menuData.map((item: ModelMenuItem) => (
+    <MenuItem key={item.id} {...item} setCartData={setCartData} />
   ));
+  return <>{menuItems}</>;
 }

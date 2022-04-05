@@ -42,7 +42,7 @@ function Header() {
           noWrap
           sx={{ flexGrow: 1 }}
         >
-          DevZero Cafe
+          Da$h Cafe
         </Typography>
       </Toolbar>
     </AppBar>

@@ -1,13 +1,21 @@
 import CartItem from "./CartItem";
-import { List } from "@mui/material";
-export default function CartItems({ cartData }) {
-  if (!cartData) return null;
+import { Stack, Typography } from "@mui/material";
+type CartItemType = {
+  id: string;
+  name: string;
+  description: string;
+  count: number;
+};
+export default function CartItems({ cartData, setCartData }) {
+  console.log(cartData);
+  if (!cartData || Object.keys(cartData) < 1)
+    return <Typography>Your cart is empty :(</Typography>;
   const cartArray = [];
   for (const [id, item] of Object.entries(cartData)) {
+    cartArray.push(item);
   }
-  const cartItems = cartArray.map((item) => (
-    <CartItem key={item.id} {...item} />
+  const cartItems = cartArray.map((item: CartItemType) => (
+    <CartItem key={item.id} {...item} setCartData={setCartData} />
   ));
-  console.log(cartArray);
-  return <List>{cartItems}</List>;
+  return <Stack>{cartItems}</Stack>;
 }

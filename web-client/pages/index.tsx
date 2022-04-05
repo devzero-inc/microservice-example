@@ -8,13 +8,13 @@ import CartItems from "../components/CartItems";
 export default function Home() {
   const cartInitialState = {};
 
-  const cartReducer = (state, action) => {
-    const newState = { ...state };
-    const { data } = action;
+  const cartReducer = (state: any, action: { type: string; data: any }) => {
+    const newState = JSON.parse(JSON.stringify(state));
+    const { type, data } = action;
     const { id } = data;
-    let count;
 
     const addItemToCart = () => {
+      let count;
       const keyExists = state && id in state;
       if (keyExists) {
         const currCount = newState[id].count;
@@ -22,22 +22,28 @@ export default function Home() {
       } else {
         count = 1;
       }
+      return { [id]: { ...data, count } };
     };
 
-    const incrementItemInCart = () => {};
+    const decrementItem = () => {
+      if (newState[id].count === 1) {
+        delete newState[id];
+      } else {
+        newState[id].count -= 1;
+      }
+    };
 
-    const decrementItemInCart = () => {};
-
-    switch (action.type) {
+    switch (type) {
       case "ADD":
-        addItemToCart();
+        const newItem = addItemToCart();
+        return { ...newState, ...newItem };
       case "INCREMENT":
-        incrementItemInCart();
+        newState[id].count += 1;
+        return { ...newState };
       case "DECREMENT":
-        decrementItemInCart();
+        decrementItem();
+        return { ...newState };
     }
-
-    return { ...newState, [id]: { ...data, count } };
   };
   const [menuData, setMenuData] = useState(null);
   const [isLoading, setLoading] = useState(false);
@@ -56,7 +62,6 @@ export default function Home() {
   }, []);
 
   if (isLoading) return <div>Loading</div>;
-  console.log("CART DATA", cartData);
   return (
     <Layout>
       <Grid container spacing={2}>
@@ -69,7 +74,7 @@ export default function Home() {
         <Grid container item md={4} spacing={2}>
           <Grid item md={12}>
             <Typography variant="h5">Cart</Typography>
-            <CartItems cartData={cartData} />
+            <CartItems cartData={cartData} setCartData={setCartData} />
           </Grid>
         </Grid>
       </Grid>

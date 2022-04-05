@@ -1,31 +1,51 @@
-import { ListItem, ListItemButton, ListItemText } from "@mui/material";
+import { IconButton, Button, Box, Typography } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 interface CartItemInterface {
-  key: React.Key;
   id: string;
   name: string;
   description: string;
   count: number;
+  setCartData: Dispatch<any>;
 }
 export default function CartItem({
   id,
-  key,
   name,
   description,
   count,
+  setCartData,
 }: CartItemInterface) {
-  const decrementItemInCart = () => {
-    console.log("DOWN", id);
-  };
-  const incrementItemInCart = () => {
-    console.log(id);
-  };
   return (
-    <ListItem sx={{ display: "flex", flexDirection: "row" }}>
-      <ListItemText>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+      }}
+    >
+      <IconButton
+        onClick={() =>
+          setCartData({
+            type: "DECREMENT",
+            data: { id, name, description, count },
+          })
+        }
+      >
+        <RemoveIcon />
+      </IconButton>
+      <Typography>
         {name} Qty: {count}
-      </ListItemText>
-      <ListItemButton onClick={decrementItemInCart}>+</ListItemButton>
-      <ListItemButton onClick={incrementItemInCart}>-</ListItemButton>
-    </ListItem>
+      </Typography>
+      <IconButton
+        onClick={() =>
+          setCartData({
+            type: "INCREMENT",
+            data: { id, name, description, count },
+          })
+        }
+      >
+        <AddIcon />
+      </IconButton>
+    </Box>
   );
 }

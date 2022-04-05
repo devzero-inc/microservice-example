@@ -70,9 +70,7 @@ grpcurl -d '{"orderItems": {"menuItemID": 6, "quantity": 2}}' -plaintext 127.0.0
 
 ## Front End Stuff
 
-Make sure to forward ports 3000 and 8333.
-3000 must be forwarded so that the front end can be viewed in browser.
-8333 must be forwarded so that the front end can hit the API.
+Check out the README in the web-client!
 
 ## TODO:
 

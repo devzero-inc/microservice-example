@@ -3,14 +3,20 @@
 First, install all the dependencies with yarn:
 
 ```bash
-yarn
+npm install -f
 ```
+
+Forcing is required due to a trivial dep mismatch. MUI currently expects React 17, but Next requires React 18. Something something javascript.
 
 Second, run the development server:
 
 ```bash
-yarn dev
+npm run dev
 ```
+
+Do not use yarn right now. PNP makes life hard.
+
+## Run the codezzzz
 
 Open [URL of your running environment]/proxy/3000 with your browser to see the result.
 

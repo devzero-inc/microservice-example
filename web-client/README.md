@@ -1,9 +1,9 @@
 ## Getting Started
 
-First, install all the dependencies with yarn:
+First, install all the dependencies with npm:
 
 ```bash
-npm install -f
+npm install
 ```
 
 Forcing is required due to a trivial dep mismatch. MUI currently expects React 17, but Next requires React 18. Something something javascript.

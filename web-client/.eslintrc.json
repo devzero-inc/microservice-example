@@ -1,0 +1,34 @@
+{
+  "extends": [
+    "next/core-web-vitals"
+    // "airbnb",
+    // "airbnb-typescript",
+    // "airbnb/hooks",
+    // "plugin:jsx-a11y/recommended",
+    // "prettier"
+  ],
+  // "plugins": ["jsx-a11y"],
+  // "parserOptions": {
+  //   "project": "./tsconfig.eslint.json"
+  // },
+  "rules": {
+    "import/no-named-as-default-member": 0,
+    "import/no-named-as-default": 0,
+    // have to suppress this one for now because
+    // Typescript is dumb about arrays of react elements
+    // the workaround is to wrap those arrays in a fragment
+    // often those arrays are stored in a single variable
+    // and the linter reads this as one element wrapped in a fragment
+    "react/jsx-no-useless-fragment": 0,
+    // suppress errors for missing 'import React' in files
+    "react/react-in-jsx-scope": "off",
+    // allow jsx syntax in js files (for next.js project)
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    ],
+    "react/jsx-props-no-spreading": "off"
+  }
+}

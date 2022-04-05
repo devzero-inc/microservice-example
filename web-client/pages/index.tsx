@@ -64,7 +64,8 @@ export default function Home() {
   useEffect(() => {
     async function fetchMenuItems() {
       setLoading(true);
-      const menuItemData = await axios.get("http://localhost:8333/menu-items");
+
+      const menuItemData = await axios.get("/proxy/8333/menu-items");
       const { data } = menuItemData;
       setMenuData(data);
       setLoading(false);

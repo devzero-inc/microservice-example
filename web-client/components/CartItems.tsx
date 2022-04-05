@@ -1,17 +1,22 @@
+import { Dispatch } from "react";
 import CartItem from "./CartItem";
 import { Stack, Typography } from "@mui/material";
-type CartItemType = {
-  id: string;
-  name: string;
-  description: string;
-  count: number;
-};
-export default function CartItems({ cartData, setCartData }) {
-  console.log(cartData);
-  if (!cartData || Object.keys(cartData) < 1)
+import { CartItemType, CartDataType } from "../pages/index";
+
+type CartArrayType = [] | CartItemType[];
+interface CartItemsIx {
+  cartData: CartDataType;
+  setCartData: Dispatch<any>;
+}
+export default function CartItems({ cartData, setCartData }: CartItemsIx) {
+  if (!cartData || Object.keys(cartData).length < 1)
     return <Typography>Your cart is empty :(</Typography>;
-  const cartArray = [];
+
+  const cartArray: CartArrayType = [];
+
+  // @ts-ignore
   for (const [id, item] of Object.entries(cartData)) {
+    // @ts-ignore
     cartArray.push(item);
   }
   const cartItems = cartArray.map((item: CartItemType) => (

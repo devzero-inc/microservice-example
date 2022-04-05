@@ -5,8 +5,19 @@ import axios from "axios";
 import MenuItems from "../components/MenuItems";
 import CartItems from "../components/CartItems";
 
+export type CartItemType = {
+  id: string;
+  name: string;
+  description: string;
+  count: number;
+};
+export type CartDataType =
+  | {}
+  | {
+      [key: string]: CartItemType;
+    };
 export default function Home() {
-  const cartInitialState = {};
+  const cartInitialState: CartDataType = {};
 
   const cartReducer = (state: any, action: { type: string; data: any }) => {
     const newState = JSON.parse(JSON.stringify(state));

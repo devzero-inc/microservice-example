@@ -22,5 +22,10 @@ export default function CartItems({ cartData, setCartData }: CartItemsIx) {
   const cartItems = cartArray.map((item: CartItemType) => (
     <CartItem key={item.id} {...item} setCartData={setCartData} />
   ));
-  return <Stack>{cartItems}</Stack>;
+  return (
+    <>
+      <Stack>{cartItems}</Stack>
+      <form></form>
+    </>
+  );
 }

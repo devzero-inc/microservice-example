@@ -6,14 +6,14 @@ interface CartItemInterface {
   id: string;
   name: string;
   description: string;
-  count: number;
+  quantity: number;
   setCartData: Dispatch<any>;
 }
 export default function CartItem({
   id,
   name,
   description,
-  count,
+  quantity,
   setCartData,
 }: CartItemInterface) {
   return (
@@ -28,20 +28,20 @@ export default function CartItem({
         onClick={() =>
           setCartData({
             type: "DECREMENT",
-            data: { id, name, description, count },
+            data: { id, name, description, quantity },
           })
         }
       >
         <RemoveIcon />
       </IconButton>
       <Typography>
-        {name} Qty: {count}
+        {name} Qty: {quantity}
       </Typography>
       <IconButton
         onClick={() =>
           setCartData({
             type: "INCREMENT",
-            data: { id, name, description, count },
+            data: { id, name, description, quantity },
           })
         }
       >

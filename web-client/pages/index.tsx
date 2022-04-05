@@ -9,7 +9,7 @@ export type CartItemType = {
   id: string;
   name: string;
   description: string;
-  count: number;
+  quantity: number;
 };
 export type CartDataType =
   | {}
@@ -25,22 +25,22 @@ export default function Home() {
     const { id } = data;
 
     const addItemToCart = () => {
-      let count;
+      let quantity;
       const keyExists = state && id in state;
       if (keyExists) {
-        const currCount = newState[id].count;
-        count = currCount + 1;
+        const currQuantity = newState[id].quantity;
+        quantity = currQuantity + 1;
       } else {
-        count = 1;
+        quantity = 1;
       }
-      return { [id]: { ...data, count } };
+      return { [id]: { ...data, quantity } };
     };
 
     const decrementItem = () => {
-      if (newState[id].count === 1) {
+      if (newState[id].quantity === 1) {
         delete newState[id];
       } else {
-        newState[id].count -= 1;
+        newState[id].quantity -= 1;
       }
     };
 
@@ -49,7 +49,7 @@ export default function Home() {
         const newItem = addItemToCart();
         return { ...newState, ...newItem };
       case "INCREMENT":
-        newState[id].count += 1;
+        newState[id].quantity += 1;
         return { ...newState };
       case "DECREMENT":
         decrementItem();

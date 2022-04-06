@@ -20,6 +20,6 @@ Do not use yarn right now. PNP makes life hard.
 
 Open [URL of your running environment]/proxy/3000 with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+You can start editing the page by modifying `pages/index.tsx`. The code auto-updates as you edit the file.
 
 You can order as much as you want! It's on the house!

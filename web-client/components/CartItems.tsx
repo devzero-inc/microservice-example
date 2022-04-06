@@ -8,9 +8,10 @@ export type CartArrayType = [] | CartItemType[];
 interface CartItemsIx {
   cartData: CartDataType;
   setCartData: Dispatch<any>;
+  setCartStatus: Dispatch<any>;
 }
 
-export default function CartItems({ cartData, setCartData }: CartItemsIx) {
+export default function CartItems({ cartData, setCartData, setCartStatus }: CartItemsIx) {
   if (!cartData || Object.keys(cartData).length < 1)
     return <Typography>Your cart is empty :(</Typography>;
 
@@ -27,7 +28,7 @@ export default function CartItems({ cartData, setCartData }: CartItemsIx) {
   return (
     <>
       <Stack>{cartItems}</Stack>
-      <CartForm orderData={cartArray} setCartData={setCartData} />
+      <CartForm orderData={cartArray} setCartData={setCartData} setCartStatus={setCartStatus}/>
     </>
   );
 }

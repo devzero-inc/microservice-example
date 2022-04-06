@@ -4,6 +4,8 @@ import { Grid, Box, Typography } from "@mui/material";
 import axios from "axios";
 import MenuItems from "../components/MenuItems";
 import CartItems from "../components/CartItems";
+import CART_STATUS from "../constants/cartStatus";
+import OrderSuccessDialog from "../components/OrderSuccessDialog";
 
 export type CartItemType = {
   id: string;
@@ -16,6 +18,7 @@ export type CartDataType =
   | {
       [key: string]: CartItemType;
     };
+
 export default function Home() {
   const cartInitialState: CartDataType = {};
 
@@ -60,7 +63,7 @@ export default function Home() {
   const [menuData, setMenuData] = useState(null);
   const [isLoading, setLoading] = useState(false);
   const [cartData, setCartData] = useReducer(cartReducer, cartInitialState);
-  const [customerData, setCustomerData] = useState(null);
+  const [cartStatus, setCartStatus] = useState(CART_STATUS.SHOPPING);
 
   useEffect(() => {
     async function fetchMenuItems() {
@@ -87,10 +90,11 @@ export default function Home() {
         <Grid container item md={4} spacing={2}>
           <Grid item md={12}>
             <Typography variant="h5">Cart</Typography>
-            <CartItems cartData={cartData} setCartData={setCartData} />
+            <CartItems cartData={cartData} setCartData={setCartData} setCartStatus={setCartStatus}/>
           </Grid>
         </Grid>
       </Grid>
+      <OrderSuccessDialog cartStatus={cartStatus} setCartStatus={setCartStatus}/>
     </Layout>
   );
 }

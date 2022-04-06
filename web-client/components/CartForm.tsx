@@ -4,6 +4,7 @@ import * as yup from "yup";
 import { Button, TextField } from "@mui/material";
 import { CartArrayType } from "./CartItems";
 import { Dispatch } from "react";
+import CART_STATUS from "../constants/cartStatus";
 
 const validationSchema = yup.object({
   name: yup.string().required("Name is required"),
@@ -12,11 +13,13 @@ const validationSchema = yup.object({
 interface CartFormInterface {
   orderData: CartArrayType;
   setCartData: Dispatch<any>;
+  setCartStatus: Dispatch<any>;
 }
 
 export default function CartForm({
   orderData,
   setCartData,
+  setCartStatus,
 }: CartFormInterface) {
   const transformCartData = () => {
     const transformed = orderData.map((orderItem) => {
@@ -46,6 +49,7 @@ export default function CartForm({
       await axios.post("/proxy/8333/orders", body);
       onSubmitProps.resetForm();
       setCartData({ type: "CLEAR", data: null });
+      setCartStatus(CART_STATUS.ORDER_PLACED);
     },
   });
   return (

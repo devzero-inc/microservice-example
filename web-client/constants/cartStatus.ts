@@ -1,0 +1,6 @@
+const CART_STATUS = {
+    SHOPPING: "SHOPPING",
+    ORDER_PLACED: "ORDER_PLACED"
+}
+
+export default CART_STATUS;

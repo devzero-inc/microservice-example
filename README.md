@@ -70,7 +70,7 @@ grpcurl -d '{"orderItems": {"menuItemID": 6, "quantity": 2}}' -plaintext 127.0.0
 
 ## Front End Stuff
 
-Check out the README in the web-client!
+Check out the [README](./web-client/README.md) in the web-client!
 
 ## TODO:
 

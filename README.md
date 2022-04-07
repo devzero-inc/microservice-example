@@ -69,13 +69,28 @@ grpcurl -d '{"orderItems": {"menuItemID": 6, "quantity": 2}}' -plaintext 127.0.0
 ```
 
 ## Front End Stuff
+The Next.js app is already running in development mode in the backgroun via [forever](https://github.com/foreversd/forever):
+```
+devzero@ip-10-0-112-234:~/projects/microservice-example/web-client$ forever list
+info:    Forever processes running
+data:        uid  command       script                     forever pid   id logfile                         uptime                  
+data:    [0] UFVW /usr/bin/node node_modules/.bin/next dev 88084   89558    /home/devzero/.forever/UFVW.log 0:0:6:32.69900000000001 
+```
 
-Check out the [README](./web-client/README.md) in the web-client!
+Any changes you make will be detected + recompiled just as if you had run `npm run dev` manually.
+You can tail the logs from the `/web-client` directory with:
+```
+tail -f stdout.txt
+```
 
-## TODO:
+You can also restart (or stop) the service using forever:
+```
+forever (restart|stop) 0
+```
 
-[X] dockerize the service
-[X] dockerize the DB
-[X] add a "theme" / use case
-[X] launch from config
-[ ] general cleanup
+To start the service again, from the `/web-client` folder run:
+```
+forever node_modules/.bin/next dev > stdout.txt 2> stderr.txt &
+```
+
+For more info on manually running the web-client, check out this [README](./web-client/README.md)!

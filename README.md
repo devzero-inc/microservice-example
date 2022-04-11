@@ -1,7 +1,42 @@
 # DevZero Microervice Example
 
-## Running the services (API, backend, database)
+## Architecure
+- Next.js web application
+- Golang REST service
+- Golang RPC service
+- MySQL database
 
+## Getting started
+If you created an environment from DevZero's Microservice Template, all of the services will automatically be up and running!
+
+1. Click the "Connect in browser" button to launch the codeserver, a browser-based Visual Studio Code app. You can make changes to the service and view logs here:
+
+    ![environment connect in browser](/images/connect-in-browser.png)
+
+
+2. Note the the hostname of your service:
+
+    ![hostname](/images/hostname.png)
+
+
+3. In a new tab, go to the `/proxy/3000/` route on the host, e.g.:
+
+    ![web app url](/images/web-app-url.png)
+
+
+4. You should see the demo web app, Da$h Cafe, which will allow you to add items to the cart and place an order:
+
+    ![dash cafe demo app](/images/dash-cafe.png)
+
+
+5. Making changes
+    - **Frontend:** changes you make the web client will automatically be re-compiled and immediately visible in the browser. 
+    - **Backend:** changes to the backend services can also be made here by simply running `docker-compose up` in the main directory. 
+    - **Database:** log into Adminer `<hostname>/proxy/8080` (user: admin, password: password, database: backend_service) to change database records
+
+## Manual steps for running all services
+
+### 1. Backend: build and start the services (requires docker)
 ```
 `docker-compose build && docker-compose up`
 
@@ -14,18 +49,25 @@ a93d72fb09b5   mysql                         "docker-entrypoint.s…"   48 secon
 5173f6d53321   adminer                       "entrypoint.sh docke…"   48 seconds ago   Up 47 seconds             0.0.0.0:8080->8080/tcp              microservice-example_adminer_1
 ```
 
+### 2. Frontend
+```
+cd microservice-example/web-client/
+npm install
+npm run dev
+```
+
 ## Making requests to the API service
 
 ### Getting all menu items
 
 ```
-curl 'api-service:8333/menu-items'
+curl 'localhost:8333/menu-items'
 ```
 
 ### Creating an order
 
 ```
-curl -X POST 'api-service:8333/orders' \
+curl -X POST 'localhost:8333/orders' \
 -H 'Content-Type: application/json' \
 -D '{"orderItems": [
     {
@@ -37,6 +79,16 @@ curl -X POST 'api-service:8333/orders' \
         "quantity": 2
     }
 ], "customerName": "Sharon"}'
+```
+
+### Service healthcheck
+
+```
+curl  "localhost:8333/healthcheck" | jq .
+{
+  "statusCode": 200,
+  "status": "OK"
+}
 ```
 
 ## Local setup + running the backend service (without Docker)

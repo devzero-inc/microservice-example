@@ -30,9 +30,9 @@ If you created an environment from DevZero's Microservice Template, all of the s
 
 
 5. Making changes
-    - Frontend: changes you make the web client will automatically be re-compiled and immediately visible in the browser. 
-    - Backend: changes to the backend services can also be made here by simply running `docker-compose up` in the main directory. 
-
+    - **Frontend:** changes you make the web client will automatically be re-compiled and immediately visible in the browser. 
+    - **Backend:** changes to the backend services can also be made here by simply running `docker-compose up` in the main directory. 
+    - **Database:** log into Adminer `<hostname>/proxy/8080` (user: admin, password: password, database: backend_service) to change database records
 
 ## Manual steps for running all services
 

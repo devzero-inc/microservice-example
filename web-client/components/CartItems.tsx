@@ -13,7 +13,7 @@ interface CartItemsIx {
 
 export default function CartItems({ cartData, setCartData, setCartStatus }: CartItemsIx) {
   if (!cartData || Object.keys(cartData).length < 1)
-    return <Typography>Your cart is empty :(</Typography>;
+    return <Typography>Your cart is empty...so go fill it up!</Typography>;
 
   const cartArray: CartArrayType = [];
 

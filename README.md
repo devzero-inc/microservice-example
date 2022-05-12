@@ -1,4 +1,4 @@
-# DevZero Microervice Example
+# DevZero Microservice Example
 
 ## Architecure
 - Next.js web application

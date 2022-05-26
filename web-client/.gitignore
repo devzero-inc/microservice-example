@@ -33,3 +33,7 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# output files for local run
+stdout.txt
+stderr.txt

@@ -1,6 +1,6 @@
 # DevZero Microservice Example
 
-## Architecure
+## Architecture
 - Next.js web application
 - Golang REST service
 - Golang RPC service

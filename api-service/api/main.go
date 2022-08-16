@@ -104,6 +104,7 @@ func main() {
 
 	corsHandler := cors.New(cors.Options{
 		AllowedOrigins: []string{"*"},
+		AllowedMethods: []string{"*"},
 		// AllowCredentials: true,
 	})
 	handler := corsHandler.Handler(router)

@@ -46,7 +46,9 @@ export default function CartForm({
         orderItems: transformCartData(),
         customerName: values.name,
       };
-      await axios.post("/proxy/8333/orders", body);
+      await axios
+        .post("http://localhost:8333/orders", body)
+        .catch((err) => console.log(err));
       onSubmitProps.resetForm();
       setCartData({ type: "CLEAR", data: null });
       setCartStatus(CART_STATUS.ORDER_PLACED);

@@ -34,7 +34,7 @@ func getAllMenuItems(w http.ResponseWriter, r *http.Request) {
 
 	res, _ := c.ReadAllMenuItems(ctx, &empty.Empty{})
 
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:300")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
 	json.NewEncoder(w).Encode(res.MenuItemsList)
@@ -66,6 +66,9 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Fprintf(w, "Failed to create order")
 	}
+
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(res.Id)

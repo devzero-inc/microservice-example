@@ -103,8 +103,8 @@ func main() {
 	router.HandleFunc("/healthcheck", healthcheck).Methods("GET")
 
 	corsHandler := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:3000"},
-		AllowCredentials: true,
+		AllowedOrigins: []string{"*"},
+		// AllowCredentials: true,
 	})
 	handler := corsHandler.Handler(router)
 

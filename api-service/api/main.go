@@ -35,6 +35,7 @@ func getAllMenuItems(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Fprintf(w, "Failed to read menu items")
 		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	json.NewEncoder(w).Encode(res.MenuItemsList)
@@ -58,6 +59,8 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintf(w, "Invalid order request")
+		w.WriteHeader(http.StatusBadRequest)
+		return
 	}
 
 	json.Unmarshal(reqBody, &newOrder)
@@ -66,6 +69,7 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Fprintf(w, "Failed to create order")
 		w.WriteHeader(http.StatusInternalServerError)
+		return
 	}
 
 	w.WriteHeader(http.StatusCreated)
@@ -85,7 +89,6 @@ func healthcheck(w http.ResponseWriter, r *http.Request) {
 			StatusCode: http.StatusInternalServerError,
 			Status:     http.StatusText(http.StatusInternalServerError),
 		}
-
 	}
 	defer conn.Close()
 

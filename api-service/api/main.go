@@ -12,7 +12,6 @@ import (
 	pb "github.com/devzero-inc/grpc-service/backend-service/pkg/api/service/v1"
 	"github.com/devzero-inc/grpc-service/config"
 	"github.com/golang/protobuf/ptypes/empty"
-	"github.com/rs/cors"
 	"google.golang.org/grpc"
 
 	"github.com/gorilla/mux"
@@ -32,10 +31,11 @@ func getAllMenuItems(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	res, _ := c.ReadAllMenuItems(ctx, &empty.Empty{})
-
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	res, err := c.ReadAllMenuItems(ctx, &empty.Empty{})
+	if err != nil {
+		fmt.Fprintf(w, "Failed to read menu items")
+		w.WriteHeader(http.StatusInternalServerError)
+	}
 
 	json.NewEncoder(w).Encode(res.MenuItemsList)
 }
@@ -65,10 +65,8 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 	res, err := c.CreateOrder(ctx, &newOrder)
 	if err != nil {
 		fmt.Fprintf(w, "Failed to create order")
+		w.WriteHeader(http.StatusInternalServerError)
 	}
-
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 
 	w.WriteHeader(http.StatusCreated)
 	json.NewEncoder(w).Encode(res.Id)
@@ -108,13 +106,6 @@ func main() {
 	router.HandleFunc("/menu-items", getAllMenuItems).Methods("GET")
 	router.HandleFunc("/healthcheck", healthcheck).Methods("GET")
 
-	corsHandler := cors.New(cors.Options{
-		AllowedOrigins: []string{"*"},
-		AllowedMethods: []string{"*"},
-		// AllowCredentials: true,
-	})
-	handler := corsHandler.Handler(router)
-
 	host := fmt.Sprintf("%s:%s", cfg.APIService.Hostname, cfg.APIService.Port)
-	log.Fatal(http.ListenAndServe(host, handler))
+	log.Fatal(http.ListenAndServe(host, router))
 }

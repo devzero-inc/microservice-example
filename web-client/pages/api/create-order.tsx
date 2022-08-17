@@ -3,7 +3,7 @@ import { AxiosResponse } from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const createOrder = () => async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const response: AxiosResponse = await axios.post("http://localhost:8333/orders", req.body);
         res.status(response.status || 200).json(response.data);
@@ -11,3 +11,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         console.log(error);
     }
 };
+
+export default createOrder();

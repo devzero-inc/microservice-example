@@ -23,7 +23,7 @@ export default function Home() {
   const cartInitialState: CartDataType = {};
 
   const cartReducer = (state: any, action: { type: string; data: any }) => {
-    const newState = JSON.parse(JSON.stringify(state));
+    const newState = state && JSON.parse(JSON.stringify(state));
     const { type, data } = action;
 
     const addItemToCart = () => {

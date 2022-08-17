@@ -5,14 +5,14 @@
   - [Making changes](#making-changes)
     - [Frontend service](#frontend-service)
     - [Backend services (with Docker)](#backend-services-with-docker)
-      - [Database](#database)
+    - [Database](#database)
   - [Making requests to the API service](#making-requests-to-the-api-service)
     - [Getting all menu items](#getting-all-menu-items)
     - [Creating an order](#creating-an-order)
     - [Service healthcheck](#service-healthcheck)
   - [Local setup + running the backend service (without Docker)](#local-setup--running-the-backend-service-without-docker)
   - [Test: automatically fetch all menu items, create an order](#test-automatically-fetch-all-menu-items-create-an-order)
-  - [Manually calling the service](#manually-calling-the-service)
+  - [Manually calling the service](#manually-calling-the-service) 
 
 ## Architecture
 - Next.js web application
@@ -82,7 +82,7 @@ e207881b1113   microservice-example_api      "/app/api"               19 seconds
 a93d72fb09b5   mysql                         "docker-entrypoint.s…"   48 seconds ago   Up 47 seconds (healthy)   0.0.0.0:3306->3306/tcp, 33060/tcp   db
 5173f6d53321   adminer                       "entrypoint.sh docke…"   48 seconds ago   Up 47 seconds             0.0.0.0:8080->8080/tcp              microservice-example_adminer_1
 ```
-#### Database 
+### Database 
 Log into Adminer `<hostname>/proxy/8080` (user: admin, password: password, database: backend_service) to view and change database records
 
 ## Making requests to the API service

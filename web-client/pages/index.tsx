@@ -23,7 +23,7 @@ export default function Home() {
   const cartInitialState: CartDataType = {};
 
   const cartReducer = (state: any, action: { type: string; data: any }) => {
-    const newState = JSON.parse(JSON.stringify(state));
+    const newState = state && JSON.parse(JSON.stringify(state));
     const { type, data } = action;
 
     const addItemToCart = () => {
@@ -69,9 +69,10 @@ export default function Home() {
     async function fetchMenuItems() {
       setLoading(true);
 
-      const menuItemData = await axios.get("/proxy/8333/menu-items");
-      const { data } = menuItemData;
-      setMenuData(data);
+      await axios
+        .get("/api/get-menu-items")
+        .then((res) => setMenuData(res.data))
+        .catch((err) => console.log(err));
       setLoading(false);
     }
     fetchMenuItems();
@@ -90,11 +91,18 @@ export default function Home() {
         <Grid container item md={4} spacing={2}>
           <Grid item md={12}>
             <Typography variant="h5">Cart</Typography>
-            <CartItems cartData={cartData} setCartData={setCartData} setCartStatus={setCartStatus}/>
+            <CartItems
+              cartData={cartData}
+              setCartData={setCartData}
+              setCartStatus={setCartStatus}
+            />
           </Grid>
         </Grid>
       </Grid>
-      <OrderSuccessDialog cartStatus={cartStatus} setCartStatus={setCartStatus}/>
+      <OrderSuccessDialog
+        cartStatus={cartStatus}
+        setCartStatus={setCartStatus}
+      />
     </Layout>
   );
 }

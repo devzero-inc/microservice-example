@@ -70,7 +70,7 @@ export default function Home() {
       setLoading(true);
 
       await axios
-        .get("http://localhost:8333/menu-items")
+        .get("/api/get-menu-items")
         .then((res) => setMenuData(res.data))
         .catch((err) => console.log(err));
       setLoading(false);

@@ -47,7 +47,7 @@ export default function CartForm({
         customerName: values.name,
       };
       await axios
-        .post("http://localhost:8333/orders", body)
+        .post("/api/create-order", body)
         .catch((err) => console.log(err));
       onSubmitProps.resetForm();
       setCartData({ type: "CLEAR", data: null });

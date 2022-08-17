@@ -5,15 +5,15 @@
   - [Making changes](#making-changes)
     - [Frontend service](#frontend-service)
     - [Backend services (with Docker)](#backend-services-with-docker)
-      - [Databse](#databse)
+    - [Database](#database)
   - [Making requests to the API service](#making-requests-to-the-api-service)
     - [Getting all menu items](#getting-all-menu-items)
-      - [Creating an order](#creating-an-order)
-      - [Service healthcheck](#service-healthcheck)
+    - [Creating an order](#creating-an-order)
+    - [Service healthcheck](#service-healthcheck)
   - [Local setup + running the backend service (without Docker)](#local-setup--running-the-backend-service-without-docker)
   - [Test: automatically fetch all menu items, create an order](#test-automatically-fetch-all-menu-items-create-an-order)
-  - [Manually calling the service](#manually-calling-the-service)
-  
+  - [Manually calling the service](#manually-calling-the-service) 
+
 ## Architecture
 - Next.js web application
 - Golang REST service
@@ -36,7 +36,7 @@ To view and share the service, follow these steps to create a Share Link:
     ![share dropdown](/images/share-link-dropdown.png)
 
 
-3. Select port 3000 (where the web app is listening), then click 'Create share link':
+3. Select port 3000 (where the web app is listening), then click 'Create link':
 
     ![create share link for port 3000](/images/create-share-link.png)
 
@@ -82,7 +82,7 @@ e207881b1113   microservice-example_api      "/app/api"               19 seconds
 a93d72fb09b5   mysql                         "docker-entrypoint.s…"   48 seconds ago   Up 47 seconds (healthy)   0.0.0.0:3306->3306/tcp, 33060/tcp   db
 5173f6d53321   adminer                       "entrypoint.sh docke…"   48 seconds ago   Up 47 seconds             0.0.0.0:8080->8080/tcp              microservice-example_adminer_1
 ```
-#### Databse 
+### Database 
 Log into Adminer `<hostname>/proxy/8080` (user: admin, password: password, database: backend_service) to view and change database records
 
 ## Making requests to the API service
@@ -92,7 +92,7 @@ Log into Adminer `<hostname>/proxy/8080` (user: admin, password: password, datab
 curl 'localhost:8333/menu-items'
 ```
 
-#### Creating an order
+### Creating an order
 
 ```
 curl -X POST 'localhost:8333/orders' \
@@ -109,7 +109,7 @@ curl -X POST 'localhost:8333/orders' \
 ], "customerName": "Sharon"}'
 ```
 
-#### Service healthcheck
+### Service healthcheck
 
 ```
 curl  "localhost:8333/healthcheck" | jq .

@@ -12,6 +12,7 @@ create table if not exists `menu_items` (
   `id` bigint(20) not null auto_increment,
   `name` varchar(200) not null,
   `description` varchar(200) not null,
+  `price` decimal (6, 2) not null,   
   PRIMARY KEY (`id`),
   constraint unique (`name`)
 );
@@ -27,9 +28,9 @@ create table if not exists `order_items` (
 );
 
 # Seed the DB with some menu items
-insert into `menu_items` (`name`, `description`) values ('Drip coffee', 'Fast, simple, delicious');
-insert into `menu_items` (`name`, `description`) values ('Espresso', 'The potent option');
-insert into `menu_items` (`name`, `description`) values ('Cortado', 'Espresso with a dash of milk');
-insert into `menu_items` (`name`, `description`) values ('Gibraltar', 'Like a Cortado, but different');
-insert into `menu_items` (`name`, `description`) values ('Pour over', 'Fancy drip made by a human');
-insert into `menu_items` (`name`, `description`) values ('Americano', 'Espresso cut with water');
+insert into `menu_items` (`name`, `description`, `price`) values ('Drip coffee', 'Fast, simple, delicious', 3.25);
+insert into `menu_items` (`name`, `description`, `price`) values ('Espresso', 'The potent option', 3.00);
+insert into `menu_items` (`name`, `description`, `price`) values ('Cortado', 'Espresso with a dash of milk', 3.75);
+insert into `menu_items` (`name`, `description`, `price`) values ('Gibraltar', 'Like a Cortado, but different', 3.75);
+insert into `menu_items` (`name`, `description`, `price`) values ('Pour over', 'Fancy drip made by a human', 4.50);
+insert into `menu_items` (`name`, `description`, `price`) values ('Americano', 'Espresso cut with water', 3.50);

@@ -33,7 +33,7 @@ func getAllMenuItems(w http.ResponseWriter, r *http.Request) {
 
 	res, err := c.ReadAllMenuItems(ctx, &empty.Empty{})
 	if err != nil {
-		fmt.Fprintf(w, "Failed to read menu items")
+		log.Printf("Failed to read menu items: %v ", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -58,7 +58,7 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 	var newOrder pb.CreateOrderRequest
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		fmt.Fprintf(w, "Invalid order request")
+		log.Println(w, "Invalid order request")
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}

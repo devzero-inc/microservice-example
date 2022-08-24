@@ -9,6 +9,7 @@ message MenuItem {
     int64 id = 1;
     string name = 2;
     string description = 3;
+    double price = 4;
 }
 
 message OrderItem {

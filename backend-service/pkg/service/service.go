@@ -78,7 +78,7 @@ func (s *orderServiceServer) ReadAllMenuItems(ctx context.Context, req *empty.Em
 	}
 	defer conn.Close()
 
-	rows, err := conn.QueryContext(context.Background(), "select id, name, description from menu_items")
+	rows, err := conn.QueryContext(context.Background(), "select * from menu_items")
 	if err != nil {
 		log.Println("failed to read from menu_items table", err)
 		return nil, status.Error(codes.Internal, "failed to read from menu_items -> "+err.Error())
@@ -88,7 +88,7 @@ func (s *orderServiceServer) ReadAllMenuItems(ctx context.Context, req *empty.Em
 	menuItemsList := []*v1.MenuItem{}
 	for rows.Next() {
 		var menuItem = new(v1.MenuItem)
-		if err := rows.Scan(&menuItem.Id, &menuItem.Name, &menuItem.Description); err != nil {
+		if err := rows.Scan(&menuItem.Id, &menuItem.Name, &menuItem.Description, &menuItem.Price); err != nil {
 			log.Println("failed to read menu_items row", err)
 			return nil, status.Error(codes.Internal, "failed to retrieve field values from menu_items row-> "+err.Error())
 		}

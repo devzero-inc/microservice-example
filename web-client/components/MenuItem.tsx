@@ -13,6 +13,7 @@ export type ModelMenuItem = {
   name: string;
   description: string;
   setCartData: Dispatch<any>;
+price: number;
 };
 
 export default function MenuItem({
@@ -20,6 +21,7 @@ export default function MenuItem({
   name,
   description,
   setCartData,
+price,
 }: ModelMenuItem) {
   return (
     <Grid item md={4} lg={4}>
@@ -36,7 +38,7 @@ export default function MenuItem({
       >
         <CardContent>
           <Typography variant="h5" gutterBottom>
-            {name}
+            {name} ${price}
           </Typography>
           <Typography variant="body2">{description}</Typography>
         </CardContent>

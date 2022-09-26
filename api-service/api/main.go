@@ -9,12 +9,11 @@ import (
 	"net/http"
 	"time"
 
-	pb "github.com/devzero-inc/grpc-service/backend-service/pkg/api/service/v1"
-	"github.com/devzero-inc/grpc-service/config"
+	pb "github.com/devzero-inc/microservice-example/backend-service/pkg/api/service/v1"
+	"github.com/devzero-inc/microservice-example/config"
 	"github.com/golang/protobuf/ptypes/empty"
-	"google.golang.org/grpc"
-
 	"github.com/gorilla/mux"
+	"google.golang.org/grpc"
 )
 
 const (

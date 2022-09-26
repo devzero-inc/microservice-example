@@ -6,7 +6,7 @@ import (
 	"log"
 	"strings"
 
-	v1 "github.com/devzero-inc/grpc-service/backend-service/pkg/api/service/v1"
+	v1 "github.com/devzero-inc/microservice-example/backend-service/pkg/api/service/v1"
 	"github.com/golang/protobuf/ptypes/empty"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

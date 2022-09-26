@@ -5,11 +5,10 @@ import (
 	"database/sql"
 	"fmt"
 
+	"github.com/devzero-inc/microservice-example/backend-service/pkg/protocol/grpc"
+	v1 "github.com/devzero-inc/microservice-example/backend-service/pkg/service"
+	"github.com/devzero-inc/microservice-example/config"
 	_ "github.com/go-sql-driver/mysql"
-
-	"github.com/devzero-inc/grpc-service/backend-service/pkg/protocol/grpc"
-	v1 "github.com/devzero-inc/grpc-service/backend-service/pkg/service"
-	"github.com/devzero-inc/grpc-service/config"
 )
 
 func RunServer() error {

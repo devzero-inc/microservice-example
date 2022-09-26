@@ -7,7 +7,7 @@ import (
 	"os"
 	"os/signal"
 
-	v1 "github.com/devzero-inc/grpc-service/backend-service/pkg/api/service/v1"
+	v1 "github.com/devzero-inc/microservice-example/backend-service/pkg/api/service/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )

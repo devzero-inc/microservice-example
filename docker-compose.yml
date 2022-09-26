@@ -31,7 +31,7 @@ services:
       retries: 20
   server:
     build:
-      context: ./backend-service
+      context: .
       dockerfile: backend-service/server-docker-compose.dockerfile
     hostname: backend-service
     depends_on:

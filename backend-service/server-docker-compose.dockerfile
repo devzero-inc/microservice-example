@@ -5,6 +5,7 @@ WORKDIR /app
 
 # copies all files from local into WORKDIR
 COPY . .
+COPY . ../go.* 
 RUN go mod download
 
 RUN go build ./backend-service/cmd/server

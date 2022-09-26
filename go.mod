@@ -1,4 +1,4 @@
-module github.com/devzero-inc/grpc-service
+module github.com/devzero-inc/microservice-example
 
 go 1.17
 

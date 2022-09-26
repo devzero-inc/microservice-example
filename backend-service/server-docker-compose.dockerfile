@@ -6,9 +6,8 @@ WORKDIR /app
 # copies all files from local into WORKDIR
 COPY . .
 RUN go mod download
-RUN ls
 
-RUN go build ./cmd/server
+RUN go build ./backend-service/cmd/server
 
 EXPOSE 9090
 

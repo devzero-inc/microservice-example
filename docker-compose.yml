@@ -10,6 +10,10 @@ services:
       dockerfile: backend-service/cmd/server/storage/Dockerfile
     ports:
       - "3306:3306"
+    expose:
+      - '3306'
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
     volumes:
       - ./backend-service/cmd/server/storage:/docker-entrypoint-initdb.d
     environment:
@@ -18,6 +22,7 @@ services:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: backend_service
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_HOST: '%'
     healthcheck:
       test: mysql -h backend-service-db -P 3306 --user=$$MYSQL_USER --password=$$MYSQL_PASSWORD -e 'SHOW DATABASES;'
       start_period: 10s
@@ -27,7 +32,7 @@ services:
   server:
     build:
       context: .
-      dockerfile: backend-service/Dockerfile
+      dockerfile: backend-service/server-docker-compose.dockerfile
     hostname: backend-service
     depends_on:
       db:

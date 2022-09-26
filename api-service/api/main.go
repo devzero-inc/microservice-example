@@ -17,9 +17,18 @@ import (
 	"github.com/gorilla/mux"
 )
 
+const (
+	_backendServiceDNS  = "backend-service"
+	_backendServicePort = 9090
+)
+
+var (
+	_backendURL = fmt.Sprintf("%s:%d", _backendServiceDNS, _backendServicePort)
+)
+
 func getAllMenuItems(w http.ResponseWriter, r *http.Request) {
 	log.Println("API: gtting all menu items")
-	conn, err := grpc.Dial("backend-service:9090", grpc.WithInsecure())
+	conn, err := grpc.Dial(_backendURL, grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
@@ -43,7 +52,7 @@ func getAllMenuItems(w http.ResponseWriter, r *http.Request) {
 
 func createOrder(w http.ResponseWriter, r *http.Request) {
 	log.Println("API: creating order")
-	conn, err := grpc.Dial("backend-service:9090", grpc.WithInsecure())
+	conn, err := grpc.Dial(_backendURL, grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
@@ -82,7 +91,7 @@ func healthcheck(w http.ResponseWriter, r *http.Request) {
 		Status:     http.StatusText(http.StatusOK),
 	}
 
-	conn, err := grpc.Dial("backend-service:9090", grpc.WithInsecure())
+	conn, err := grpc.Dial(_backendURL, grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 		healthcheck = &pb.Healthcheck{

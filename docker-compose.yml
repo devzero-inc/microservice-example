@@ -3,7 +3,7 @@ services:
   db:
     container_name: db
     platform: linux/x86_64
-    image: mysql
+    image: mysql:8.0-debian
     hostname: backend-service-db
     build:
       context: .
@@ -48,8 +48,40 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+  web-client:
+    build:
+      context: web-client
+      dockerfile: ./Dockerfile
+    hostname: web-client
+    environment:
+      API_HOST: api-service
+    restart: always
+    volumes:
+      # To avoid mounting the node_modules folder we need to mount everything around it
+      - ./web-client/components:/app/components
+      - ./web-client/constants:/app/constants
+      - ./web-client/pages:/app/pages
+      - ./web-client/public:/app/public
+      - ./web-client/styles:/app/styles
+      - ./web-client/.eslintrc.json:/app/.eslintrc.json
+      - ./web-client/.gitignore:/app/.gitignore
+      - ./web-client/next.config.js:/app/next.config.js
+      - ./web-client/next-env.d.ts:/app/next-env.d.ts
+      - ./web-client/package.json:/app/package.json
+      - ./web-client/package-lock.json:/app/package-lock.json
+      - ./web-client/tsconfig.json:/app/tsconfig.json
+    depends_on:
+      - server
+      - api
+    ports:
+      - "3000:3000" # http
+    healthcheck:
+      test: curl --fail http://api-service:8333/healthcheck || exit 1;
+      interval: 5s
+      timeout: 5s
+      retries: 10
   adminer:
-    image: adminer
+    image: adminer:standalone
     restart: always
     ports:
       - 8080:8080

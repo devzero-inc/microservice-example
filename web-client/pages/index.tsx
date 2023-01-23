@@ -84,7 +84,7 @@ export default function Home() {
       <Grid container spacing={2}>
         <Grid container item md={8} spacing={2}>
           <Grid item md={12}>
-            <Typography variant="h5">Menu Items</Typography>
+            <Typography variant="h5">DevZero's Items</Typography>
           </Grid>
           <MenuItems menuData={menuData} setCartData={setCartData} />
         </Grid>

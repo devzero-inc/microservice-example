@@ -28,7 +28,7 @@ services:
       start_period: 10s
       interval: 2s
       timeout: 5s
-      retries: 20
+      retries: 100
   server:
     build:
       context: .

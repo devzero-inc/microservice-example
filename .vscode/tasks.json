@@ -1,0 +1,89 @@
+{
+    "version": "2.0.0",
+    "presentation": {
+      "echo": false,
+      "reveal": "always",
+      "focus": false,
+      "panel": "shared",
+      "showReuseMessage": false,
+      "close": false
+    },
+    "tasks": [
+      {
+        "label": "Create terminals",
+        "dependsOrder": "sequence",
+        "dependsOn": [
+          "Echo command",
+          "Install dependencies",
+          "Open README",
+          "Echo ready command",
+          "Open Terminal",
+        ],
+        // Mark as the default build task so cmd/ctrl+shift+b will create them
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        // Try start the task on folder open
+        "runOptions": {
+          "runOn": "folderOpen"
+        }
+      },
+      {
+        // The name that shows up in terminal tab
+        "label": "Open Terminal",
+        // The task will launch a shell
+        "type": "shell",
+        "command": "/bin/bash",
+        // Set the shell type
+        // Mark as a background task to avoid the spinner animation on the terminal tab
+        "isBackground": true,
+        "problemMatcher": [],
+        // Create the tasks in a terminal group
+        "presentation": {
+          "group": "my-group"
+        }
+      },
+      {
+        "label": "Open README",
+        "type": "shell",
+        "command": "readme_count=$(find . -name README.md -type f | wc -l); if [ $readme_count -ne 1 ]; then echo '-1'; else readme_path=$(find . -name README.md -type f -print); code-server $readme_path; fi"
+,
+        "isBackground": true,
+        "problemMatcher": [],
+        "presentation": {
+          "group": "my-group"
+        }
+      },
+      {
+        "label": "Echo command",
+        "type": "shell",
+        "command": "echo DevZero:Welcome to Code-Server",
+        "isBackground": true,
+        "problemMatcher": [],
+        "presentation": {
+          "group": "my-group"
+        }
+      },
+      {
+        "label": "Install dependencies",
+        "type": "shell",
+        "command": "code-server --install-extension esbenp.prettier-vscode && code-server --install-extension dbaeumer.vscode-eslint && code-server --install-extension ms-vscode.vscode-typescript-next",
+        "isBackground": true,
+        "problemMatcher": [],
+        "presentation": {
+          "group": "my-group"
+        }
+      },
+      {
+        "label": "Echo ready command",
+        "type": "shell",
+        "command": "echo All fueled up :\\) You are ready to start developing!",
+        "isBackground": true,
+        "problemMatcher": [],
+        "presentation": {
+          "group": "my-group"
+        }
+      }
+    ]
+  }

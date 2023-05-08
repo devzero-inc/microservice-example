@@ -66,7 +66,7 @@ To view and share the service, follow these steps to create a Share Link:
 
 ## Making changes
 ### Frontend service
-All code for the frontend lives in the `/web-client` directory. The Next.js app is already running in development mode in the backgroun via [forever](https://github.com/foreversd/forever). Changes you make the web client will automatically be re-compiled and immediately visible in the browser.
+All code for the frontend lives in the `/web-client` directory. The Next.js app is already running in development mode in the background via [forever](https://github.com/foreversd/forever). Changes you make the web client will automatically be re-compiled and immediately visible in the browser.
 
 ```
 devzero@ip-10-0-112-234:~/projects/microservice-example/web-client$ forever list

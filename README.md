@@ -39,54 +39,36 @@ Happy coding!
 - MySQL database
 
 ## Getting started
-If you created an environment from DevZero's Microservice Template, all of the services will automatically be up and running!
+If you created an environment from DevZero's Microservice Template, all of the backend services will automatically be up and running!
 
 To view and share the service, follow these steps to create a Share Link:
 
 
 1. Click the "Open in web browser" button to launch the codeserver, a browser-based Visual Studio Code app. You can make changes to the service and view logs here:
 
-    ![environment open in web browser](/images/open-in-web-browser.png)
-
+![environment open in web browser](/images/open-in-web-browser.png)
 
 2. Click on the dropdown and select 'Share':
 
-    ![share dropdown](/images/share-link-dropdown.png)
-
+![share dropdown](/images/share-link-dropdown.png)
 
 3. Select port 3000 (where the web app is listening), then click 'Create link':
 
-    ![create share link for port 3000](/images/create-share-link.png)
+![create share link for port 3000](/images/create-share-link.png)
 
+4. Run the frontend: `cd web-client; npm run dev`
 
-4. You can now see the demo web app, Da$h Cafe, which will allow you to add items to the cart and place an order:
+5. You can now see the demo web app, Da$h Cafe, which will allow you to add items to the cart and place an order:
 
-    ![dash cafe demo app](/images/dash-cafe.png)
+![dash cafe demo app](/images/dash-cafe.png)
 
 
 ## Making changes
 ### Frontend service
-All code for the frontend lives in the `/web-client` directory. The Next.js app is already running in development mode in the background via [forever](https://github.com/foreversd/forever). Changes you make the web client will automatically be re-compiled and immediately visible in the browser.
+All code for the frontend lives in the `/web-client` directory.
 
 ```
-devzero@ip-10-0-112-234:~/projects/microservice-example/web-client$ forever list
-info:    Forever processes running
-data:        uid  command       script                     forever pid   id logfile                         uptime                  
-data:    [0] UFVW /usr/bin/node node_modules/.bin/next dev 88084   89558    /home/devzero/.forever/UFVW.log 0:0:6:32.69900000000001 
-```
-
-You can tail the logs from the `/web-client` directory with:
-```
-tail -f stdout.txt
-```
-
-You can also restart (or stop) the service using forever:
-```
-forever (restart|stop) 0
-```
-
-Or with npm:
-```
+# from web-client directory
 npm run dev
 ```
 

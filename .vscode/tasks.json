@@ -58,7 +58,7 @@
       {
         "label": "Echo command",
         "type": "shell",
-        "command": "echo DevZero: Welcome!",
+        "command": "echo DevZero:Welcome to Code-Server",
         "isBackground": true,
         "problemMatcher": [],
         "presentation": {

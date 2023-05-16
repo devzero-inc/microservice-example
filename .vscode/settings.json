@@ -2,6 +2,5 @@
     "task.allowAutomaticTasks": "on",
     "workbench.editorAssociations": {         
         "*.md": "vscode.markdown.preview.editor"
-    },
-    "remote.autoForwardPorts":false,
+    }
  }

@@ -62,9 +62,11 @@ services:
     build:
       context: ./web-client
       target: runner
+    depends_on:
+      - api
     volumes:
       - ./web-client:/app
-    command: npm run dev
+    command: npm run dev-docker-compose
     ports:
       - "3000:3000"
     environment:

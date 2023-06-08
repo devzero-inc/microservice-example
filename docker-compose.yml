@@ -60,10 +60,11 @@ services:
       - 8080:8080
   web-client:
     build:
-      context: .
-      dockerfile: web-client/Dockerfile
+      context: ./web-client
+      target: runner
     volumes:
       - ./web-client:/app
+    command: npm run dev
     ports:
       - "3000:3000"
     environment:

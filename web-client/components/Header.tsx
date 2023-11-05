@@ -26,7 +26,7 @@ const AppBar = styled(MuiAppBar, {
 
 function Header() {
   return (
-    <AppBar position="absolute" open>
+    <AppBar sx={{ bgcolor: "purple" }} position="absolute" open>
       <Toolbar
         sx={{
           pr: "24px",

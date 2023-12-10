@@ -1,0 +1,11 @@
+dev:
+  commands:
+  - command: go mod download
+    directory: microservice-example
+    name: install cmd
+  name: ""
+  packages:
+  - nixpkgs.docker
+  - nixpkgs.go
+  repos:
+  - https://github.com/devzero-inc/microservice-example

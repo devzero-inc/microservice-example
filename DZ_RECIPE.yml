@@ -6,6 +6,9 @@ dev:
   - command: npm install
     directory: microservice-example/web-client
     name: install cmd
+  - command: touch rob.txt
+    directory: 
+    name: rob cmd
   name: ""
   packages:
   - nixpkgs.docker

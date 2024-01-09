@@ -1,15 +1,24 @@
 dev:
   commands:
-  - command: go mod download
-    directory: microservice-example
-    name: install cmd
-  - command: npm install
-    directory: microservice-example/web-client
-    name: install cmd
-  name: ""
+    - command: go mod download
+      directory: microservice-example
+      name: install cmd
+    - command: npm install
+      directory: microservice-example/web-client
+      name: install cmd
+  name: robs cool workspace
   packages:
-  - nixpkgs.docker
-  - nixpkgs.go
-  - nixpkgs.nodejs_18
+    - nixpkgs.docker
+    - nixpkgs.go
+    - nixpkgs.nodejs_18
   repos:
-  - https://github.com/devzero-inc/microservice-example
+    - https://github.com/devzero-inc/microservice-example
+    - https://github.com/devzero-inc/services
+    - https://github.com/rubocop/rubocop
+env:
+  - key: DOESTHIS
+    value: WORK
+  - key: DOESTHIS2
+    value: WORK
+  - key: DOESTHIS3
+    value: WORK

@@ -6,7 +6,6 @@ volumes:
 services:
   db:
     container_name: db
-    platform: linux/x86_64
     image: mysql
     hostname: backend-service-db
     build:
@@ -25,7 +24,7 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     healthcheck:
       test: mysql -h backend-service-db -P 3306 --user=$$MYSQL_USER --password=$$MYSQL_PASSWORD -e 'SHOW DATABASES;'
-      start_period: 10s
+      # start_period: 10s # change in docker-compose syntax support
       interval: 2s
       timeout: 5s
       retries: 100
@@ -35,8 +34,7 @@ services:
       dockerfile: backend-service/Dockerfile
     hostname: backend-service
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     ports:
       - "9090:9090" # http
   api:
